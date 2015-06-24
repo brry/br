@@ -1,0 +1,25 @@
+
+This Log of changes in my package installB contains two sections:
+1. future development - a list of things I want to change
+2. development over time - a log of the changes I already made
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+1. installB - future development
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+# put updatePackages stuff here as well
+# installB must first detach packages depending on the package to be updated.
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+2. installB - development over time
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+Version 0.1 (2015-06-24)
+initial release onto github (function pulled from other package extremeStat)
