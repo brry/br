@@ -4,8 +4,7 @@
 # \code{\link{installB}} with default package extremeStat
 
 installE <- function(
-package="extremeStat", # package name
 path="S:/Dropbox/Public") # path containing package folder
 {
-installB(package, path)
+installB(package="extremeStat", path=path)
 }

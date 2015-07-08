@@ -1,8 +1,8 @@
 Package: installB
 Type: Package
 Title: Update R package locally
-Version: 0.1.1
-Date: 2015-06-24
+Version: 0.1.2
+Date: 2015-07-08
 Imports: devtools
 Author: Berry Boessenkool
 Maintainer: Berry Boessenkool <berry-b@gmx.de>
