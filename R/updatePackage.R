@@ -6,12 +6,13 @@ path="S:/Dropbox/Public" # path containing package folder
 {
 if(interactive())
 {
-library(utils)
+if(!require(package, character.only=TRUE))
+  stop("package ", package, " must be installed before updatePackage can work.")
 # remove end slash
 if(substring(path, nchar(path))=="/")
    path <- substring(path, 1, nchar(path)-1)
 # installed date:
-date_inst <- packageDescription(package)$Date
+date_inst <- utils::packageDescription(package)$Date
 # date in source code
 date_source <- read.dcf(file=paste0(path,"/",package, "/DESCRIPTION"), fields="Date")
 # install if updated:
@@ -19,8 +20,8 @@ if( as.Date(date_source) > as.Date(date_inst) )   installB(package, path)
 # load:
 suppressMessages(library(package, character.only=TRUE))
 # prepare message
-version <- packageDescription(package)$Version
-date <- packageDescription(package)$Date
+version <- utils::packageDescription(package)$Version
+date <- utils::packageDescription(package)$Date
 message("Loaded package ", package, ", Version ", version, " from ", date ,".")
 }
 }
