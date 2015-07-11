@@ -10,8 +10,10 @@ if(!file.exists(path)) substr(path, 1,1) <- "D"
 # laptop linux path change:
 if(!file.exists(path)) { substr(path, 1,1) <- "~" ; substr(path, 2,2) <- "" }
 #
-package <- deparse(substitute(package))
-package <- gsub("\"", "", package, fixed=TRUE)
+# Somehow this section changes "berryFunctions" into "package" if called from updatePackage()
+# package <- deparse(substitute(package))
+# package <- gsub("\"", "", package, fixed=TRUE)
+#
 # remove function objects from workspace
 d <- dir(paste0(path, "/", package, "/R"))
 d <- gsub(".r", "", d, fixed=TRUE)
