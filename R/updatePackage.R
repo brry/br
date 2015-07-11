@@ -6,7 +6,7 @@ path="S:/Dropbox/Public" # path containing package folder
 {
 if(interactive())
 {
-if(!require(package, character.only=TRUE))
+if(!require(package, character.only=TRUE, quietly=TRUE))
   stop("package ", package, " must be installed before updatePackage can work.")
 # remove end slash
 if(substring(path, nchar(path))=="/")
@@ -16,9 +16,15 @@ date_inst <- utils::packageDescription(package)$Date
 # date in source code
 date_source <- read.dcf(file=paste0(path,"/",package, "/DESCRIPTION"), fields="Date")
 # install if updated:
-if( as.Date(date_source) > as.Date(date_inst) )   installB(package, path)
+if( as.Date(date_source) > as.Date(date_inst) )
+  {
+  require("devtools", quietly=TRUE) # now updatePackage can be in the Rprofile.site startup routine
+  require("utils", quietly=TRUE) # to avoid warning: could not find function "available.packages"
+  require("stats", quietly=TRUE) # the same for update
+  installB(package, path)
+  }
 # load:
-suppressMessages(library(package, character.only=TRUE))
+require(package, character.only=TRUE, quietly=TRUE)
 # prepare message
 version <- utils::packageDescription(package)$Version
 date <- utils::packageDescription(package)$Date

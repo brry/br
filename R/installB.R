@@ -24,5 +24,5 @@ rm(list=l[l %in% d], envir=globalenv())
 #.....
 # install
 devtools::install(paste0(path, "/", package))
-library(package, character.only=TRUE)
+require(package, character.only=TRUE, quietly=TRUE)
 }
