@@ -8,4 +8,21 @@
   \item{path}{path containing package folder. DEFAULT: "S:/Dropbox/Public"}
 }
 \author{Berry Boessenkool, \email{berry-b@gmx.de}, 2014}
+\examples{
+\dontrun{
+# Here's what you could write into your Rprofile.site:
+if(interactive())
+{
+if(require(installB, quietly=TRUE)){
+cat("-----------------------------------------------\n")
+updatePackage("berryFunctions", path="S:/Dropbox/Public")
+updatePackage(   "extremeStat", path="S:/Dropbox/Public")
+}
+cat("-----------------------------------------------\n")
+cat("getwd() : ", getwd(), "\n")
+cat("-----------------------------------------------\n")
+}
+
+}
+}
 \seealso{\code{\link{installB}}, \code{\link{packageDescription}}, \code{\link{read.dcf}} }
