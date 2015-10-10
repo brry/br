@@ -20,8 +20,8 @@ d <- gsub(".r", "", d, fixed=TRUE)
 d <- gsub(".R", "", d, fixed=TRUE)
 l <- ls(globalenv())
 rm(list=l[l %in% d], envir=globalenv())
-# unload package and dependencies to avoid "unloading not successfull" messages
-#.....
+# unload package and dependencies to avoid unloadNamespace * not successful. Forcing unload." messages
+try(unloadNamespace("extremeStat"), silent=TRUE)
 # install
 devtools::install(paste0(path, "/", package))
 require(package, character.only=TRUE, quietly=TRUE)
