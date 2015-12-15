@@ -3,12 +3,15 @@
 
 installB <- function(
 package="berryFunctions", # package name
-path="S:/Dropbox/Public") # path containing package folder
+path="S:/Dropbox/Public"
+) # path containing package folder
 {
 # work PC path change:
 if(!file.exists(path)) substr(path, 1,1) <- "D"
 # laptop linux path change:
-if(!file.exists(path)) { substr(path, 1,1) <- "~" ; substr(path, 2,2) <- "" }
+if(!file.exists(path)) path <- gsub("D:", "~", path)
+# new work PC path change:
+if(!file.exists(path)) path <- gsub("~", "C:/Users/boessenkool", path)
 #
 # Somehow this section changes "berryFunctions" into "package" if called from updatePackage()
 # package <- deparse(substitute(package))

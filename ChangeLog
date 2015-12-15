@@ -1,24 +1,10 @@
 
-This Log of changes in my package installB contains two sections:
-1. future development - a list of things I want to change
-2. development over time - a log of the changes I already made
+Version 0.1.7 (2015-12-15)
+- utils dependency corrected
+- path change corrected and expanded
+- installB first detaches extremeSat (depending on the package to be update)
+- example code for Rprofile.site added
 
-
-----------------------------------------------------------------------
-----------------------------------------------------------------------
-1. installB - future development
-----------------------------------------------------------------------
-----------------------------------------------------------------------
-
-# put updatePackages stuff here as well
-# installB must first detach packages depending on the package to be updated.
-
-
-----------------------------------------------------------------------
-----------------------------------------------------------------------
-2. installB - development over time
-----------------------------------------------------------------------
-----------------------------------------------------------------------
 
 
 Version 0.1.1 (2015-06-24)
