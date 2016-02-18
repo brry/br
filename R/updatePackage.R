@@ -15,8 +15,12 @@ if(substring(path, nchar(path))=="/")
 date_inst <- utils::packageDescription(package)$Date
 # date in source code
 date_source <- read.dcf(file=paste0(path,"/",package, "/DESCRIPTION"), fields="Date")
+# installed version:
+version_inst <- utils::packageDescription(package)$Version
+# version in source code
+version_source <- read.dcf(file=paste0(path,"/",package, "/DESCRIPTION"), fields="Version")
 # install if updated:
-if( as.Date(date_source) > as.Date(date_inst) )
+if( as.Date(date_source) > as.Date(date_inst) | version_source > version_inst)
   {
   require("devtools", quietly=TRUE) # now updatePackage can be in the Rprofile.site startup routine
   require("utils", quietly=TRUE) # to avoid warning: could not find function "available.packages"
