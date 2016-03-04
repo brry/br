@@ -1,8 +1,8 @@
 Package: installB
 Type: Package
 Title: Update R package locally
-Version: 0.1.9
-Date: 2016-02-19
+Version: 0.1.10
+Date: 2016-03-04
 Imports: devtools, utils
 Author: Berry Boessenkool
 Maintainer: Berry Boessenkool <berry-b@gmx.de>
