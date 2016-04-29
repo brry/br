@@ -34,22 +34,26 @@ grDevices::windows.options(width=4.5, height=5)
 # Loading Packages
 if(interactive())
 {
-message(" ---- Load own packages? ENTER for no, type and ENTER for yes. ")
-d <- readline("Load own packages? ENTER for no, type and ENTER for yes. ")
-if(!d %in% c("","n","no")){
-if(require(installB, quietly=TRUE))
-cat("-----------------------------------------------\n")
-updatePackage("berryFunctions", path="S:/Dropbox/Public")
-updatePackage(   "extremeStat", path="S:/Dropbox/Public")
-}
-require("devtools", quietly=TRUE)
-message("Loaded package devtools,    Version ",
-   utils::packageDescription("devtools")$Version,
-   " from ", utils::packageDescription("devtools")$Date ,".")
-require("pbapply", quietly=TRUE)
-message("Loaded package pbapply,     Version ",
-   utils::packageDescription("pbapply")$Version,
-   " from ", utils::packageDescription("pbapply")$Date ,".")
+message(" ---- Load own packages? y/n/none. Empty==n.")
+input <- readline("Load own packages? y/n/none. Empty==n.")
+if(! input \%in\% c("","n","no", "none"))
+  {
+  if(require(installB, quietly=TRUE))
+   cat("-----------------------------------------------\n")
+  updatePackage("berryFunctions", path="S:/Dropbox/Public")
+  updatePackage(   "extremeStat", path="S:/Dropbox/Public")
+  }
+if(! input =="none")
+  {
+  require("devtools", quietly=TRUE)
+  message("Loaded package devtools,    Version ",
+     utils::packageDescription("devtools")$Version,
+     " from ", utils::packageDescription("devtools")$Date ,".")
+  require("pbapply", quietly=TRUE)
+  message("Loaded package pbapply,     Version ",
+     utils::packageDescription("pbapply")$Version,
+    " from ", utils::packageDescription("pbapply")$Date ,".")
+  }
 cat("-----------------------------------------------\n")
 cat("getwd() : ", getwd(), "\n")
 cat("-----------------------------------------------\n")
@@ -60,6 +64,22 @@ devtools.name = "Berry Boessenkool",
   devtools.desc.author = "Berry Boessenkool <berry-b@gmx.de> [aut,cre]",
   devtools.desc.license = "GPL-3"
 )
+
+### Rconsole file:
+# Style This can be `yes' (for MDI) or `no' (for SDI).
+MDI = no
+# Dimensions (in characters) of the console.
+rows = 15
+columns = 100
+# Dimensions (in characters) of the internal pager.
+pgrows = 15
+pgcolumns = 100
+# Initial position of the console (pixels, relative to the workspace for MDI)
+xconsole = 1088
+yconsole = 716
+# Initial position of the graphics window
+xgraphics = -5
+ygraphics = 0
 
 }
 }
