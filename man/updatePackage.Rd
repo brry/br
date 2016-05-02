@@ -15,7 +15,7 @@
 options(help_type="html")
 
 # set a site library
-#.Library.site <- "C:/Program Files/R/R-3.2.3/library"
+.Library.site <- "C:/Program Files/R/R-3.2.5/library"
 
 # Set CRAN repository
 local({r <- getOption("repos")
@@ -34,16 +34,16 @@ grDevices::windows.options(width=4.5, height=5)
 # Loading Packages
 if(interactive())
 {
-message(" ---- Load own packages? y/n/none. Empty==n.")
-input <- readline("Load own packages? y/n/none. Empty==n.")
-if(! input \%in\% c("","n","no", "none"))
-  {
+message(" ---- Load own packages? y/n/none. Empty==n. ")
+inputQuestionUpdatePackage <- readline("Load own packages? y/n/none. Empty==n. ")
+if(! match(inputQuestionUpdatePackage, c("","n","no", "none"), nomatch=0) > 0)
   if(require(installB, quietly=TRUE))
-   cat("-----------------------------------------------\n")
+  {
+  cat("-----------------------------------------------\n")
   updatePackage("berryFunctions", path="S:/Dropbox/Public")
   updatePackage(   "extremeStat", path="S:/Dropbox/Public")
   }
-if(! input =="none")
+if(inputQuestionUpdatePackage != "none")
   {
   require("devtools", quietly=TRUE)
   message("Loaded package devtools,    Version ",
@@ -59,11 +59,6 @@ cat("getwd() : ", getwd(), "\n")
 cat("-----------------------------------------------\n")
 } # End loading packages
 
-options(
-devtools.name = "Berry Boessenkool",
-  devtools.desc.author = "Berry Boessenkool <berry-b@gmx.de> [aut,cre]",
-  devtools.desc.license = "GPL-3"
-)
 
 ### Rconsole file:
 # Style This can be `yes' (for MDI) or `no' (for SDI).
