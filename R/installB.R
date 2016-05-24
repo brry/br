@@ -1,16 +1,28 @@
-# shortcut for developing my package
-# Berry Boessenkool, berry-b@gmx.de, Dec 2014
-
+#' install package from local drive
+#'
+#' Basically just an enhanced shortcut to \code{devtools::\link[devtools]{install}}
+#'
+#' @details Removes function objects from workspace and (toDo!) unloads reverse dependencies first.
+#'
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014
+#' @seealso \code{\link{help}}, \code{\link{help}}
+#' @keywords package
+#' @importFrom devtools install
+#' @export
+#' @examples
+#' # installB()
+#'
+#' @param package Package name. DEFAULT: "berryFunctions"
+#' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Public"
+#'
 installB <- function(
-package="berryFunctions", # package name
+package="berryFunctions",
 path="S:/Dropbox/Public"
-) # path containing package folder
+)
 {
-# work PC path change:
-if(!file.exists(path)) substr(path, 1,1) <- "D"
 # laptop linux path change:
-if(!file.exists(path)) path <- gsub("D:", "~", path)
-# new work PC path change:
+if(!file.exists(path)) path <- gsub("S:", "~", path)
+# work PC path change:
 if(!file.exists(path)) path <- gsub("~", "C:/Users/boessenkool", path)
 #
 # Somehow this section changes "berryFunctions" into "package" if called from updatePackage()

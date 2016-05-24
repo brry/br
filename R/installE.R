@@ -1,8 +1,14 @@
-# shortcut for developing my package
-# Berry Boessenkool, berry-b@gmx.de, June 2015
-
-# \code{\link{installB}} with default package extremeStat
-
+#' install package from local drive
+#'
+#' Just a shortcut to \code{\link{installB}} with the default \code{package="extremeStat"}
+#'
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June 2015
+#' @seealso \code{\link{installE}}, \code{\link{updatePackage}}
+#' @keywords package
+#' @export
+#'
+#' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Public"
+#'
 installE <- function(
 path="S:/Dropbox/Public") # path containing package folder
 {
