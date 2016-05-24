@@ -56,9 +56,9 @@ loadPackages <- function()
 if(interactive())
 {
 # prompt user input:
-message(" ---- Load packages? none (0), devtools+pbapply (1/empty), +berryFunctions (2/other), +extremeStat(3). ")
+message(" ---- Load packages? none (0), devtools+pbapply (1), +berryFunctions (2/empty), +extremeStat(3). ")
 what <- readline("Load packages? 0/1/2/3. ")
-if(what=="") what <- "1"
+if(what=="") what <- "2"
 if(!what %in% c("0","1","2","3")) what <- "2"
 what <- as.integer(what)
 #
