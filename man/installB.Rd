@@ -25,7 +25,7 @@ Removes function objects from workspace and (toDo!) unloads reverse dependencies
 Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2014
 }
 \seealso{
-\code{\link{help}}, \code{\link{help}}
+\code{\link{loadPackages}}
 }
 \keyword{package}
 

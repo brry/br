@@ -5,7 +5,7 @@
 #' @details Removes function objects from workspace and (toDo!) unloads reverse dependencies first.
 #'
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014
-#' @seealso \code{\link{help}}, \code{\link{help}}
+#' @seealso \code{\link{loadPackages}}
 #' @keywords package
 #' @importFrom devtools install
 #' @export

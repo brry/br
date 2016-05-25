@@ -3,7 +3,7 @@
 #' Just a shortcut to \code{\link{installB}} with the default \code{package="extremeStat"}
 #'
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June 2015
-#' @seealso \code{\link{installE}}, \code{\link{updatePackage}}
+#' @seealso \code{\link{installB}}, \code{\link{loadPackages}}
 #' @keywords package
 #' @export
 #'
