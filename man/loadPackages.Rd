@@ -4,7 +4,10 @@
 \alias{loadPackages}
 \title{install package from local drive}
 \usage{
-loadPackages()
+loadPackages(ask = TRUE)
+}
+\arguments{
+\item{ask}{Logical. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE}
 }
 \description{
 load packages I always like to have in the search path, update my own packages
@@ -33,7 +36,7 @@ grDevices::windows.options(width=4.5, height=5)
 'file.r', 'selection.r', 'block.r','lines.r'),sep='\\\\')
 
 # Loading Packages
-installB::loadPackages()
+installB::loadPackages(ask=TRUE)
 } # end dontrun rprofile.site
 
 \dontrun{

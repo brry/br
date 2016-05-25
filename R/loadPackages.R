@@ -31,7 +31,7 @@
 #' 'file.r', 'selection.r', 'block.r','lines.r'),sep='\\')
 #'
 #' # Loading Packages
-#' installB::loadPackages()
+#' installB::loadPackages(ask=TRUE)
 #' } # end dontrun rprofile.site
 #'
 #' \dontrun{
@@ -52,19 +52,29 @@
 #' ygraphics = 0
 #' } # end dontrun Rconsole
 #'
-loadPackages <- function()
+#' @param ask Logical. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE
+#' 
+loadPackages <- function(ask=TRUE)
 if(interactive())
 {
 # prompt user input:
-message(" ---- Load packages? none (0), devtools+pbapply (1),\n       +berryFunctions (2/empty), +extremeStat (3/other). ")
-what <- readline("Load packages? 0/1/2/3. ")
-if(what=="") what <- "2"
-if(!what %in% c("0","1","2","3")) what <- "3"
-what <- as.integer(what)
+if(ask)
+  {
+  message(" ---- Load packages? none (0), devtools+pbapply (1),\n       +berryFunctions (2/empty), +extremeStat (3/other). ")
+  what <- readline("Load packages? 0/1/2/3. ")
+  if(what=="") what <- "2"
+  if(!what %in% c("0","1","2","3")) what <- "3"
+  what <- as.integer(what)
+  } else
+  what <- 2
 #
 #  actual work
-if(what>=1) cat("-----------------------------------------------\n")
-if(what>=1) { loadAndMessage("devtools") ; loadAndMessage("pbapply") }
+if(what>=1) {
+  cat("-----------------------------------------------\n")
+  loadAndMessage("installB") # library("installB", quietly=TRUE)
+  loadAndMessage("devtools")
+  loadAndMessage("pbapply")
+  }
 if(what>=2) updatePackage("berryFunctions")
 if(what>=3) updatePackage("extremeStat")
 # working directory:
