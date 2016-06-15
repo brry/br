@@ -32,9 +32,8 @@
 #'
 #' # Loading Packages
 #' installB::loadPackages(ask=TRUE)
-#' } # end dontrun rprofile.site
 #'
-#' \dontrun{
+#'
 #' # Here's what I have in my Rconsole file:
 #' # Style This can be `yes' (for MDI) or `no' (for SDI).
 #' MDI = no
@@ -50,7 +49,7 @@
 #' # Initial position of the graphics window
 #' xgraphics = -5
 #' ygraphics = 0
-#' } # end dontrun Rconsole
+#' } # end dontrun
 #'
 #' @param ask Logical. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE
 #' 

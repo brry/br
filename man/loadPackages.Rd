@@ -37,9 +37,8 @@ grDevices::windows.options(width=4.5, height=5)
 
 # Loading Packages
 installB::loadPackages(ask=TRUE)
-} # end dontrun rprofile.site
 
-\dontrun{
+
 # Here's what I have in my Rconsole file:
 # Style This can be `yes' (for MDI) or `no' (for SDI).
 MDI = no
@@ -55,7 +54,7 @@ yconsole = 716
 # Initial position of the graphics window
 xgraphics = -5
 ygraphics = 0
-} # end dontrun Rconsole
+} # end dontrun
 
 }
 \author{
