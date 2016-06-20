@@ -69,7 +69,7 @@ if(ask)
 #
 #  actual work
 if(what>=1) {
-  cat('-----------------------------------------------\nloadAndMessage("")')
+  cat('-----------------------------------------------\nloadAndMessage("")\n')
   loadAndMessage("installB") # library("installB", quietly=TRUE)
   loadAndMessage("devtools")
   loadAndMessage("pbapply")
