@@ -45,14 +45,14 @@
 #' pgcolumns = 100
 #' # Initial position of the console (pixels, relative to the workspace for MDI)
 #' xconsole = 1088
-#' yconsole = 716
+#' yconsole = 716    # or 840
 #' # Initial position of the graphics window
 #' xgraphics = -5
 #' ygraphics = 0
 #' } # end dontrun
 #'
 #' @param ask Logical. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE
-#' 
+#'
 loadPackages <- function(ask=TRUE)
 if(interactive())
 {
@@ -69,7 +69,7 @@ if(ask)
 #
 #  actual work
 if(what>=1) {
-  cat("-----------------------------------------------\n")
+  cat('-----------------------------------------------\nloadAndMessage("")')
   loadAndMessage("installB") # library("installB", quietly=TRUE)
   loadAndMessage("devtools")
   loadAndMessage("pbapply")
