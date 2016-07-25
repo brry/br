@@ -1,0 +1,33 @@
+
+Version 0.2.6 (2016-07-25)
+- checks Version, not only date
+- package somewhat more lightweight, github part taken out
+- Rprofile.site example updated completely 
+- package roxygenized
+
+New Functions: loadPackages, loadAndMessage
+
+
+---------------------------------------------------------------------
+
+
+Version 0.1.7 (2015-12-15)
+- utils dependency corrected
+- path change corrected and expanded
+- installB first detaches extremeSat (depending on the package to be update)
+- example code for Rprofile.site added
+
+
+---------------------------------------------------------------------
+
+
+Version 0.1.1 (2015-06-24)
+
+New Functions: updatePackages, installE
+
+
+---------------------------------------------------------------------
+
+
+Version 0.1.0 (2015-06-24)
+initial release onto github (function pulled from other package extremeStat)

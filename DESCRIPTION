@@ -1,8 +1,8 @@
 Package: installB
 Type: Package
 Title: Update R package locally
-Version: 0.2.5
-Date: 2016-06-20
+Version: 0.2.6
+Date: 2016-07-25
 Imports:
     devtools,
     utils

@@ -19,9 +19,6 @@ load packages I always like to have in the search path, update my own packages
 
 options(help_type="html")
 
-# set a site library
-.Library.site <- "C:/Program Files/R/R-3.2.5/library"
-
 # Set CRAN repository
 local({r <- getOption("repos")
 r["CRAN"] <- "https://cran.rstudio.com" # 0-cloud
@@ -29,14 +26,14 @@ options(repos=r)})
 
 desktop <- "C:/Users/berry/Desktop"
 
-grDevices::windows.options(width=4.5, height=5)
+grDevices::windows.options(width=5.5, height=5)
 
 .trPaths <- paste(Sys.getenv('LOCALAPPDATA'),
 '\\\\Temp\\\\Tinn-R', c('', 'search.txt', 'objects.txt',
 'file.r', 'selection.r', 'block.r','lines.r'),sep='\\\\')
 
 # Loading Packages
-installB::loadPackages(ask=TRUE)
+if(interactive()) installB::loadPackages(ask=TRUE)
 
 
 # Here's what I have in my Rconsole file:
