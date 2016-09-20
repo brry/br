@@ -88,9 +88,10 @@ rm(list=l[l %in% d], envir=globalenv())
 try(unloadNamespace("extremeStat"), silent=TRUE)
 try(unloadNamespace("OSMscale"), silent=TRUE)
 #
-doinst <- FALSE
+doinst <- TRUE
 if(onlyupdate) if(!requireNamespace(package, quietly=TRUE)) {doinst <- TRUE} else
 {
+  doinst <- FALSE
   # installed date/version:
   Vinst <- utils::packageDescription(package)[c("Date","Version")]
   # date in source code
