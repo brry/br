@@ -5,14 +5,15 @@
 #' \bold{installE} and \bold{installO} are shortcuts to installB with the 
 #'       default package="extremeStat" or "OSMscale".\cr
 #' \bold{pathFinder} changes the path based on the computer used.\cr
-#' \bold{loadAndMessage} calls\code{\link{require}} and gives verbose output.\cr
-#' \bold{loadPackages} loads a number packages I always like to have in the search path.
+#' \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
+#' \bold{loadPackages} loads a number packages I always like to have in the search path.\cr
+#' \bold{detach.all} unloads all packages in the search path.
 #'
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014 - Sept 2016
 #' @seealso \code{\link{packageDescription}}, \code{\link{read.dcf}}
 #' @keywords package
 #' @importFrom devtools install
-#' @importFrom utils packageDescription
+#' @importFrom utils packageDescription sessionInfo
 #' @examples
 #' \dontrun{
 #' # Here's what you could write into your Rprofile.site:
@@ -24,7 +25,7 @@
 #' r["CRAN"] <- "https://cran.rstudio.com" # 0-cloud
 #' options(repos=r)})
 #'
-#' # create charstring base::desktop
+#' # create character string  base::desktop
 #' desktop <- "C:/Users/berry/Desktop"
 #'
 #' grDevices::windows.options(width=5.5, height=5)
@@ -33,13 +34,6 @@
 #' .trPaths <- paste(Sys.getenv('LOCALAPPDATA'),
 #' '\\Temp\\Tinn-R', c('', 'search.txt', 'objects.txt',
 #' 'file.r', 'selection.r', 'block.r','lines.r'),sep='\\')
-#' 
-#' detach.all <- function() 
-#' {
-#' pks <- rev(names(sessionInfo()$otherPkgs))
-#' message("detaching and unloading: ", toString(pks))
-#' dummy <- lapply(paste0('package:',pks), detach, character.only=TRUE, unload=TRUE)
-#' }
 #' 
 #' # Loading Packages
 #' if(interactive()) installB::loadPackages(ask=FALSE)
@@ -157,7 +151,6 @@ message("Loaded package ", format(package,width=15), "Version ",
 
 #' @export
 #' @rdname installB
-
 loadPackages <- function(ask=TRUE) if(interactive())
 {
 # prompt user input:
@@ -189,5 +182,18 @@ cat("-----------------------------------------------\n")
 cat("getwd() : ", getwd(), "\n")
 cat("-----------------------------------------------\n")
 }
+
+# ------------------------------------------------------------------------------
+
+#' @export
+#' @rdname installB
+detach.all <- function() 
+{
+pks <- rev(names(sessionInfo()$otherPkgs))
+message("detaching and unloading: ", toString(pks))
+dummy <- lapply(paste0('package:',pks), detach, character.only=TRUE, unload=TRUE)
+}
+
+# ------------------------------------------------------------------------------
 
 

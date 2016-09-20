@@ -3,11 +3,12 @@
 ---------------------------------------------------------------------
 
 
-Version 0.3.0 (2016-09-20)
+Version 0.3.1 (2016-09-20)
 - all functions into one file
 - updatePackages removed (incorporated directly in installB)
 - pathFinder added and used in upper level functions
 - installO added
+- detach.all added
 
 
 ---------------------------------------------------------------------
