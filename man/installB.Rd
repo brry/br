@@ -2,30 +2,105 @@
 % Please edit documentation in R/installB.R
 \name{installB}
 \alias{installB}
-\title{install package from local drive}
+\alias{installE}
+\alias{installO}
+\alias{loadAndMessage}
+\alias{loadPackages}
+\alias{pathFinder}
+\title{install packages from local drive}
 \usage{
-installB(package = "berryFunctions", path = "S:/Dropbox/Public")
+installB(package = "berryFunctions", path = "S:/Dropbox/Public",
+  onlyupdate = FALSE, load = FALSE)
+
+installE(...)
+
+installO(...)
+
+pathFinder(path)
+
+loadAndMessage(package, quiet = TRUE)
+
+loadPackages(ask = TRUE)
 }
 \arguments{
 \item{package}{Package name. DEFAULT: "berryFunctions"}
 
 \item{path}{Path containing package folder. DEFAULT: "S:/Dropbox/Public"}
+
+\item{onlyupdate}{Logical. Only install if the version is outdated? DEFAULT: FALSE}
+
+\item{load}{Logical. Also call loadAndMessage? DEFAULT: FALSE}
+
+\item{quiet}{Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage}
+
+\item{ask}{Logical for loadPackages. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE}
+
+\item{\ldots}{Optional for installE and isntallO: path argument passed to installB}
 }
 \description{
-Basically just an enhanced shortcut to \code{devtools::\link[devtools]{install}}
-}
-\details{
-Removes function objects from workspace and (toDo!) unloads reverse dependencies first.
+\bold{installB} removes function objects from workspace and tries to unload 
+      reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
+\bold{installE} and \bold{installO} are shortcuts to installB with the 
+      default package="extremeStat" or "OSMscale".\cr
+\bold{pathFinder} changes the path based on the computer used.\cr
+\bold{loadAndMessage} calls\code{\link{require}} and gives verbose output.\cr
+\bold{loadPackages} loads a number packages I always like to have in the search path.
 }
 \examples{
-# installB()
+\dontrun{
+# Here's what you could write into your Rprofile.site:
+
+options(help_type="html")
+
+# Set CRAN repository
+local({r <- getOption("repos")
+r["CRAN"] <- "https://cran.rstudio.com" # 0-cloud
+options(repos=r)})
+
+# create charstring base::desktop
+desktop <- "C:/Users/berry/Desktop"
+
+grDevices::windows.options(width=5.5, height=5)
+
+# Search path for Tinn R:
+.trPaths <- paste(Sys.getenv('LOCALAPPDATA'),
+'\\\\Temp\\\\Tinn-R', c('', 'search.txt', 'objects.txt',
+'file.r', 'selection.r', 'block.r','lines.r'),sep='\\\\')
+
+detach.all <- function() 
+{
+pks <- rev(names(sessionInfo()$otherPkgs))
+message("detaching and unloading: ", toString(pks))
+dummy <- lapply(paste0('package:',pks), detach, character.only=TRUE, unload=TRUE)
+}
+
+# Loading Packages
+if(interactive()) installB::loadPackages(ask=FALSE)
+
+
+# Here's what I have in my Rconsole file:
+# Style This can be `yes' (for MDI) or `no' (for SDI).
+MDI = no
+# Dimensions (in characters) of the console.
+rows = 15
+columns = 100
+# Dimensions (in characters) of the internal pager.
+pgrows = 15
+pgcolumns = 100
+# Initial position of the console (pixels, relative to the workspace for MDI)
+xconsole = 1088
+yconsole = 716    # or 840
+# Initial position of the graphics window
+xgraphics = -5
+ygraphics = 0
+} # end dontrun
 
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2014
+Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2014 - Sept 2016
 }
 \seealso{
-\code{\link{loadPackages}}
+\code{\link{packageDescription}}, \code{\link{read.dcf}}
 }
 \keyword{package}
 

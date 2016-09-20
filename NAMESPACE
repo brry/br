@@ -2,8 +2,9 @@
 
 export(installB)
 export(installE)
+export(installO)
 export(loadAndMessage)
 export(loadPackages)
-export(updatePackage)
+export(pathFinder)
 importFrom(devtools,install)
 importFrom(utils,packageDescription)
