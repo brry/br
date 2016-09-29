@@ -1,8 +1,8 @@
 #' install packages from local drive
 #'
-#' \bold{installB} removes function objects from workspace and tries to unload 
+#' \bold{installB} removes function objects from workspace and tries to unload
 #'       reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
-#' \bold{installE} and \bold{installO} are shortcuts to installB with the 
+#' \bold{installE} and \bold{installO} are shortcuts to installB with the
 #'       default package="extremeStat" or "OSMscale".\cr
 #' \bold{pathFinder} changes the path based on the computer used.\cr
 #' \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
@@ -34,7 +34,7 @@
 #' .trPaths <- paste(Sys.getenv('LOCALAPPDATA'),
 #' '\\Temp\\Tinn-R', c('', 'search.txt', 'objects.txt',
 #' 'file.r', 'selection.r', 'block.r','lines.r'),sep='\\')
-#' 
+#'
 #' # Loading Packages
 #' if(interactive()) installB::loadPackages(ask=FALSE)
 #'
@@ -157,7 +157,7 @@ loadPackages <- function(ask=TRUE) if(interactive())
 # prompt user input:
 if(ask)
 {
-  message(" ---- Load packages? 
+  message(" ---- Load packages?
 0: none
 1: installB+devtools+pbapply
 2: +berryFunctions
@@ -188,11 +188,13 @@ cat("-----------------------------------------------\n")
 
 #' @export
 #' @rdname installB
-detach.all <- function() 
+detach.all <- function()
 {
+#pks <- rev(names(c(sessionInfo()$otherPkgs, sessionInfo()$loadedOnly)))
 pks <- rev(names(sessionInfo()$otherPkgs))
 message("detaching and unloading: ", toString(pks))
-dummy <- lapply(paste0('package:',pks), detach, character.only=TRUE, unload=TRUE)
+unload <- function(x) try(detach(x, character.only=TRUE, unload=TRUE))
+dummy <- lapply(paste0('package:',pks), unload)
 }
 
 # ------------------------------------------------------------------------------

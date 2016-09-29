@@ -41,9 +41,9 @@ detach.all()
 \item{\ldots}{Optional for installE and isntallO: path argument passed to installB}
 }
 \description{
-\bold{installB} removes function objects from workspace and tries to unload 
+\bold{installB} removes function objects from workspace and tries to unload
       reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
-\bold{installE} and \bold{installO} are shortcuts to installB with the 
+\bold{installE} and \bold{installO} are shortcuts to installB with the
       default package="extremeStat" or "OSMscale".\cr
 \bold{pathFinder} changes the path based on the computer used.\cr
 \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
