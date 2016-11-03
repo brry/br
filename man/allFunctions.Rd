@@ -2,7 +2,7 @@
 % Please edit documentation in R/allFunctions.R
 \name{allFunctions}
 \alias{allFunctions}
-\title{create a file with the content of all the functions in all my packages}
+\title{create and open a file with the content of all the functions in all my packages}
 \usage{
 allFunctions(...)
 }
@@ -13,7 +13,7 @@ allFunctions(...)
 file path
 }
 \description{
-create a file with the content of all the functions in all my packages
+create and open a file with the content of all the functions in all my packages
 }
 \examples{
 # allFunctions()
