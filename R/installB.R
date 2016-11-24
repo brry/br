@@ -5,14 +5,14 @@
 #'
 #' \bold{installB} removes function objects from workspace and tries to unload
 #'       reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
-#' \bold{installE} and \bold{installO} are shortcuts to installB with the
-#'       default package="extremeStat" or "OSMscale".\cr
+#' \bold{installE}, {installO} and \bold{installR} are shortcuts to installB with the
+#'       default package="extremeStat", "OSMscale" or "rdwd".\cr
 #' \bold{pathFinder} changes the path based on the computer used.\cr
 #' \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 #' \bold{loadPackages} loads a number packages I always like to have in the search path.\cr
 #' \bold{detach.all} unloads all packages in the search path.
 #'
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014 - Sept 2016
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014 - Nov 2016
 #' @seealso \code{\link{packageDescription}}, \code{\link{read.dcf}}
 #' @keywords package
 #' @importFrom devtools install
@@ -63,7 +63,7 @@
 #' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Public"
 #' @param onlyupdate Logical. Only install if the version is outdated? 
 #'                   FALSE to always install. DEFAULT: TRUE
-#' @param load Logical. Also call loadAndMessage? DEFAULT: FALSE
+#' @param load Logical. Also call loadAndMessage? DEFAULT: TRUE
 #' @param quiet Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage
 #' @param ask Logical for loadPackages. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE
 #' @param \ldots Optional for installE and isntallO: path argument passed to installB
@@ -76,7 +76,7 @@ installB <- function(
 package="berryFunctions",
 path="S:/Dropbox/Public",
 onlyupdate=TRUE,
-load=FALSE
+load=TRUE
 )
 {
 # adjust path based on computer currently used:
@@ -93,7 +93,8 @@ try(unloadNamespace("extremeStat"), silent=TRUE)
 try(unloadNamespace("OSMscale"), silent=TRUE)
 try(unloadNamespace("rdwd"), silent=TRUE)
 #
-if(!onlyupdate) if(!requireNamespace(package, quietly=TRUE)) {doinst <- TRUE} else
+doinst <- TRUE
+if(onlyupdate)
 {
   doinst <- FALSE
   # installed date/version:
@@ -169,8 +170,9 @@ if(ask)
 1: installB+devtools+pbapply
 2: +berryFunctions
 3: +extremeStat
-4: + OSMscale")
-  what <- readline("Load packages? 0/1/2/3. ")
+4: +OSMscale
+5: +rdwd")
+  what <- readline("Load packages? 0/1/2/3/4/5. ")
   what <- as.integer(what)
 } else
   what <- 2
@@ -182,9 +184,10 @@ if(what>=1) {
   loadAndMessage("devtools")
   loadAndMessage("pbapply")
 }
-if(what>=2) installB("berryFunctions", onlyupdate=TRUE, load=TRUE)
-if(what>=3) installB("extremeStat",    onlyupdate=TRUE, load=TRUE)
-if(what>=4) installB("OSMscale",       onlyupdate=TRUE, load=TRUE)
+if(what>=2) installB("berryFunctions")
+if(what>=3) installB("extremeStat")
+if(what>=4) installB("OSMscale")
+if(what>=5) installB("rdwd")
 # working directory:
 cat("-----------------------------------------------\n")
 cat("getwd() : ", getwd(), "\n")

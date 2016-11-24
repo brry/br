@@ -12,7 +12,7 @@
 \title{install packages from local drive}
 \usage{
 installB(package = "berryFunctions", path = "S:/Dropbox/Public",
-  onlyupdate = TRUE, load = FALSE)
+  onlyupdate = TRUE, load = TRUE)
 
 installE(...)
 
@@ -36,7 +36,7 @@ detach.all()
 \item{onlyupdate}{Logical. Only install if the version is outdated? 
 FALSE to always install. DEFAULT: TRUE}
 
-\item{load}{Logical. Also call loadAndMessage? DEFAULT: FALSE}
+\item{load}{Logical. Also call loadAndMessage? DEFAULT: TRUE}
 
 \item{quiet}{Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage}
 
@@ -47,8 +47,8 @@ FALSE to always install. DEFAULT: TRUE}
 \description{
 \bold{installB} removes function objects from workspace and tries to unload
       reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
-\bold{installE} and \bold{installO} are shortcuts to installB with the
-      default package="extremeStat" or "OSMscale".\cr
+\bold{installE}, {installO} and \bold{installR} are shortcuts to installB with the
+      default package="extremeStat", "OSMscale" or "rdwd".\cr
 \bold{pathFinder} changes the path based on the computer used.\cr
 \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 \bold{loadPackages} loads a number packages I always like to have in the search path.\cr
@@ -98,7 +98,7 @@ ygraphics = 0
 
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2014 - Sept 2016
+Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2014 - Nov 2016
 }
 \seealso{
 \code{\link{packageDescription}}, \code{\link{read.dcf}}
