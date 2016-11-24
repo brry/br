@@ -203,8 +203,8 @@ detach.all <- function()
 #pks <- rev(names(c(sessionInfo()$otherPkgs, sessionInfo()$loadedOnly)))
 pks <- names(sessionInfo()$otherPkgs)
 # put lowest dependency at end:
-i <- "berryFunctions"==pks
-if( any(i) ) pks <- c(pks[!i], pks[i])
+i <- "berryFunctions"==pks  ;  if( any(i) ) pks <- c(pks[!i], pks[i])
+i <-       "devtools"==pks  ;  if( any(i) ) pks <- c(pks[!i], pks[i])
 message("detaching and unloading: ", toString(pks))
 unload <- function(x) try(detach(x, character.only=TRUE, unload=TRUE))
 dummy <- lapply(paste0('package:',pks), unload)
