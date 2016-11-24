@@ -1,3 +1,6 @@
+
+# package doc ------------------------------------------------------------------
+
 #' install packages from local drive
 #'
 #' \bold{installB} removes function objects from workspace and tries to unload
@@ -58,20 +61,21 @@
 #'
 #' @param package Package name. DEFAULT: "berryFunctions"
 #' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Public"
-#' @param onlyupdate Logical. Only install if the version is outdated? DEFAULT: FALSE
+#' @param onlyupdate Logical. Only install if the version is outdated? 
+#'                   FALSE to always install. DEFAULT: TRUE
 #' @param load Logical. Also call loadAndMessage? DEFAULT: FALSE
 #' @param quiet Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage
 #' @param ask Logical for loadPackages. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE
 #' @param \ldots Optional for installE and isntallO: path argument passed to installB
 
 
-# ------------------------------------------------------------------------------
+# installB ---------------------------------------------------------------------
 
 #' @export
 installB <- function(
 package="berryFunctions",
 path="S:/Dropbox/Public",
-onlyupdate=FALSE,
+onlyupdate=TRUE,
 load=FALSE
 )
 {
@@ -87,9 +91,9 @@ rm(list=l[l %in% d], envir=globalenv())
 # unload package dependencies to avoid unloadNamespace * not successful. Forcing unload." messages
 try(unloadNamespace("extremeStat"), silent=TRUE)
 try(unloadNamespace("OSMscale"), silent=TRUE)
+try(unloadNamespace("rdwd"), silent=TRUE)
 #
-doinst <- TRUE
-if(onlyupdate) if(!requireNamespace(package, quietly=TRUE)) {doinst <- TRUE} else
+if(!onlyupdate) if(!requireNamespace(package, quietly=TRUE)) {doinst <- TRUE} else
 {
   doinst <- FALSE
   # installed date/version:
@@ -105,7 +109,7 @@ if(doinst) devtools::install(paste0(path, "/", package))
 if(load) loadAndMessage(package)
 }
 
-# ------------------------------------------------------------------------------
+# installE / installO / installR -----------------------------------------------
 
 #' @export
 #' @rdname installB
@@ -113,8 +117,11 @@ installE <- function(...) installB(package="extremeStat", ...)
 #' @export
 #' @rdname installB
 installO <- function(...) installB(package="OSMscale", ...)
+#' @export
+#' @rdname installB
+installR <- function(...) installB(package="rdwd", ...)
 
-# ------------------------------------------------------------------------------
+# pathFinder -------------------------------------------------------------------
 
 #' @export
 #' @rdname installB
@@ -133,7 +140,7 @@ pathFinder <- function(path) # adjust path based on computer currently used:
   path
 }
 
-# ------------------------------------------------------------------------------
+# loadAndMessage ---------------------------------------------------------------
 
 #' @export
 #' @rdname installB
@@ -148,7 +155,7 @@ message("Loaded package ", format(package,width=15), "Version ",
           format(version,width=7), " from ", date)
 }
 
-# ------------------------------------------------------------------------------
+# loadPackages -----------------------------------------------------------------
 
 #' @export
 #' @rdname installB
@@ -184,14 +191,17 @@ cat("getwd() : ", getwd(), "\n")
 cat("-----------------------------------------------\n")
 }
 
-# ------------------------------------------------------------------------------
+# detach.all -------------------------------------------------------------------
 
 #' @export
 #' @rdname installB
 detach.all <- function()
 {
 #pks <- rev(names(c(sessionInfo()$otherPkgs, sessionInfo()$loadedOnly)))
-pks <- rev(names(sessionInfo()$otherPkgs))
+pks <- names(sessionInfo()$otherPkgs)
+# put lowest dependency at end:
+i <- "berryFunctions"==pks
+if( any(i) ) pks <- c(pks[!i], pks[i])
 message("detaching and unloading: ", toString(pks))
 unload <- function(x) try(detach(x, character.only=TRUE, unload=TRUE))
 dummy <- lapply(paste0('package:',pks), unload)

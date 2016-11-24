@@ -5,17 +5,20 @@
 \alias{installB}
 \alias{installE}
 \alias{installO}
+\alias{installR}
 \alias{loadAndMessage}
 \alias{loadPackages}
 \alias{pathFinder}
 \title{install packages from local drive}
 \usage{
 installB(package = "berryFunctions", path = "S:/Dropbox/Public",
-  onlyupdate = FALSE, load = FALSE)
+  onlyupdate = TRUE, load = FALSE)
 
 installE(...)
 
 installO(...)
+
+installR(...)
 
 pathFinder(path)
 
@@ -30,7 +33,8 @@ detach.all()
 
 \item{path}{Path containing package folder. DEFAULT: "S:/Dropbox/Public"}
 
-\item{onlyupdate}{Logical. Only install if the version is outdated? DEFAULT: FALSE}
+\item{onlyupdate}{Logical. Only install if the version is outdated? 
+FALSE to always install. DEFAULT: TRUE}
 
 \item{load}{Logical. Also call loadAndMessage? DEFAULT: FALSE}
 
