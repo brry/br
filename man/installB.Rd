@@ -78,6 +78,10 @@ grDevices::windows.options(width=5.5, height=5)
 # Loading Packages
 if(interactive()) installB::loadPackages(ask=FALSE)
 
+# if install.packages and download.files give HTTP status 403 forbidden:
+options(url.method="libcurl")
+
+
 
 # Here's what I have in my Rconsole file:
 # Style This can be `yes' (for MDI) or `no' (for SDI).
