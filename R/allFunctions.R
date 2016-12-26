@@ -14,10 +14,12 @@ allFunctions <- function(
 {
   owd <- getwd()
   on.exit(setwd(owd))
-  if(Sys.info()["user"]=="berry")       setwd(                  'S:/Dropbox/Public')
-  if(Sys.info()["sysname"]=="Linux")    setwd(         "/home/berry/Dropbox/Public")
-  #if(Sys.info()["user"]=="boessenkool")setwd(                  'D:/Dropbox/Public')
-  if(Sys.info()["nodename"]=="GK-PC-2") setwd('C:/Users/boessenkool/Dropbox/Public')
+  berry <- Sys.info()["user"]=="berry"
+  linux <- Sys.info()["sysname"]=="Linux"
+  work <- Sys.info()["nodename"]=="GK-PC-2"
+  if(berry&!linux)           setwd("S:/Dropbox/Public")
+  if(berry& linux)  setwd("/home/berry/Dropbox/Public")
+  if(work) setwd("C:/Users/boessenkool/Dropbox/Public")
 
   d <-      dir("berryFunctions/R", full.names=TRUE)
   d <- c(d, dir("extremeStat/R",    full.names=TRUE))
@@ -29,7 +31,7 @@ allFunctions <- function(
   outFile <- paste0("process_of_creating_package/__All_functions_", Sys.Date(), ".r")
 
   berryFunctions::combineFiles(inFiles=d, outFile=outFile, ...)
-  system2("open", outFile)
+  if(!linux) system2("open", outFile) else system2("xdg-open", outFile)
   outFile
 
 }
