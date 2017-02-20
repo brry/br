@@ -22,4 +22,3 @@ create and open a file with the content of all the functions in all my packages
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Okt 2016
 }
-

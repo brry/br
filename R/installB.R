@@ -5,8 +5,8 @@
 #'
 #' \bold{installB} removes function objects from workspace and tries to unload
 #'       reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
-#' \bold{installE}, {installO} and \bold{installR} are shortcuts to installB with the
-#'       default package="extremeStat", "OSMscale" or "rdwd".\cr
+#' \bold{installE}, {installM}, {installO} and \bold{installR} are shortcuts to installB with the
+#'       default package="extremeStat", "mhmVis", "OSMscale" or "rdwd".\cr
 #' \bold{pathFinder} changes the path based on the computer used.\cr
 #' \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 #' \bold{loadPackages} loads a number packages I always like to have in the search path.\cr
@@ -114,7 +114,7 @@ if(doinst) devtools::install(paste0(path, "/", package))
 if(load) loadAndMessage(package)
 }
 
-# installE / installO / installR -----------------------------------------------
+# installE / installO / installR / installM ------------------------------------
 
 #' @export
 #' @rdname installB
@@ -125,6 +125,9 @@ installO <- function(...) installB(package="OSMscale", ...)
 #' @export
 #' @rdname installB
 installR <- function(...) installB(package="rdwd", ...)
+#' @export
+#' @rdname installB
+installM <- function(...) installB(package="mhmVis", ...)
 
 # pathFinder -------------------------------------------------------------------
 
