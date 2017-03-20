@@ -12,7 +12,7 @@
 \alias{detach.all}
 \title{install packages from local drive}
 \usage{
-installB(package = "berryFunctions", path = "S:/Dropbox/Public",
+installB(package = "berryFunctions", path = "S:/Dropbox/Rpack",
   onlyupdate = TRUE, load = TRUE)
 
 installE(...)

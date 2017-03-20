@@ -78,7 +78,7 @@
 #' @export
 installB <- function(
 package="berryFunctions",
-path="S:/Dropbox/Public",
+path="S:/Dropbox/Rpack",
 onlyupdate=TRUE,
 load=TRUE
 )
