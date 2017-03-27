@@ -64,7 +64,7 @@
 #' } # end dontrun
 #'
 #' @param package Package name. DEFAULT: "berryFunctions"
-#' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Public"
+#' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Rpack"
 #' @param onlyupdate Logical. Only install if the version is outdated? 
 #'                   FALSE to always install. DEFAULT: TRUE
 #' @param load Logical. Also call loadAndMessage? DEFAULT: TRUE
@@ -96,6 +96,7 @@ rm(list=l[l %in% d], envir=globalenv())
 try(unloadNamespace("extremeStat"), silent=TRUE)
 try(unloadNamespace("OSMscale"), silent=TRUE)
 try(unloadNamespace("rdwd"), silent=TRUE)
+try(unloadNamespace("mhmVis"), silent=TRUE)
 #
 doinst <- TRUE
 if(onlyupdate)
@@ -110,6 +111,7 @@ if(onlyupdate)
   doinst <- TRUE
 }
 # install
+if(doinst) message("installB will now install ", package)
 if(doinst) devtools::install(paste0(path, "/", package))
 if(load) loadAndMessage(package)
 }

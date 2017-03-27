@@ -34,7 +34,7 @@ detach.all()
 \arguments{
 \item{package}{Package name. DEFAULT: "berryFunctions"}
 
-\item{path}{Path containing package folder. DEFAULT: "S:/Dropbox/Public"}
+\item{path}{Path containing package folder. DEFAULT: "S:/Dropbox/Rpack"}
 
 \item{onlyupdate}{Logical. Only install if the version is outdated? 
 FALSE to always install. DEFAULT: TRUE}
