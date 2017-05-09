@@ -189,7 +189,7 @@ if(ask)
 #  actual work
 if(what>=1) {
   cat('-----------------------------------------------\nloadAndMessage("")\n')
-  loadAndMessage("installB") # library("installB", quietly=TRUE)
+  installB("installB") # library("installB", quietly=TRUE)
   loadAndMessage("devtools")
   loadAndMessage("pbapply")
 }
