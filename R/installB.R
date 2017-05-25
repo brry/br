@@ -5,8 +5,7 @@
 #'
 #' \bold{installB} removes function objects from workspace and tries to unload
 #'       reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
-#' \bold{installE}, {installM}, {installO} and \bold{installR} are shortcuts to installB with the
-#'       default package="extremeStat", "mhmVis", "OSMscale" or "rdwd".\cr
+#' \bold{installA} runs this for all my packages.\cr
 #' \bold{pathFinder} changes the path based on the computer used.\cr
 #' \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 #' \bold{loadPackages} loads a number packages I always like to have in the search path.\cr
@@ -40,7 +39,7 @@
 #'
 #' # Loading Packages
 #' if(interactive()) installB::loadPackages(ask=FALSE)
-#' 
+#'
 #' # if install.packages and download.files give HTTP status 403 forbidden:
 #' options(url.method="libcurl")
 #'
@@ -63,10 +62,9 @@
 #' ygraphics = 0
 #' } # end dontrun
 #'
-#' @param package Package name. DEFAULT: "berryFunctions"
+#' @param package Package name. DEFAULT: NA (interactive selection)
 #' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Rpack"
-#' @param onlyupdate Logical. Only install if the version is outdated? 
-#'                   FALSE to always install. DEFAULT: TRUE
+#' @param force Logical. Even install if the version is not outdated? DEFAULT: FALSE
 #' @param load Logical. Also call loadAndMessage? DEFAULT: TRUE
 #' @param quiet Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage
 #' @param ask Logical for loadPackages. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE
@@ -77,59 +75,74 @@
 
 #' @export
 installB <- function(
-package="berryFunctions",
+package=NA,
 path="S:/Dropbox/Rpack",
-onlyupdate=TRUE,
-load=TRUE
+force=FALSE,
+load=TRUE,
+quiet=FALSE
 )
 {
 # adjust path based on computer currently used:
 path <- pathFinder(path)
 #
-# remove function objects from workspace
+# interactive package choice
+if(is.na(package))
+  {
+  packs <- dir(path)
+  packs <- packs[packs!="0-archive"]
+  sel <- menu(packs, title=paste0("Which package would you like to install",
+                                  if(!force)" (if outdated)", "?"))
+  package <- packs[sel]
+  }
+# remove function objects from workspace:
 d <- dir(paste0(path, "/", package, "/R"))
 d <- gsub(".r", "", d, fixed=TRUE)
 d <- gsub(".R", "", d, fixed=TRUE)
 l <- ls(globalenv())
 rm(list=l[l %in% d], envir=globalenv())
-# unload package dependencies to avoid unloadNamespace * not successful. Forcing unload." messages
-try(unloadNamespace("extremeStat"), silent=TRUE)
-try(unloadNamespace("OSMscale"), silent=TRUE)
+#
+# unload package dependencies to avoid messages "unloadNamespace * not successful. Forcing unload." 
 try(unloadNamespace("rdwd"), silent=TRUE)
 try(unloadNamespace("mhmVis"), silent=TRUE)
+try(unloadNamespace("extremeStat"), silent=TRUE)
+try(unloadNamespace("OSMscale"), silent=TRUE)
 #
-doinst <- TRUE
-if(onlyupdate)
-{
-  doinst <- FALSE
+# check if installed version is outdated:
+if(force) doinst <- TRUE else
+  {
   # installed date/version:
-  Vinst <- utils::packageDescription(package)[c("Date","Version")]
+  Vinst <- suppressWarnings(utils::packageDescription(package)[c("Date","Version")])
+  # if not yet installed, install anyways:
+  if(all(is.na(Vinst))) Vinst <- list(Date="1900-01-01",Version="0")
   # date in source code
-  Vsrc <- read.dcf(file=paste0(path,"/",package, "/DESCRIPTION"), fields=c("Date","Version"))
+  descfile <- paste0(path,"/",package, "/DESCRIPTION")
+  if(!file.exists(descfile)) stop("The file '", descfile, "' does not exist.")
+  Vsrc <- read.dcf(file=descfile, fields=c("Date","Version"))
   # install if outdated:
-  if( as.Date(Vsrc[,"Date"]) > as.Date(Vinst$Date) | Vsrc[,"Version"] > Vinst$Version)
-  doinst <- TRUE
-}
+  doinst <- as.Date(Vsrc[,"Date"]) > as.Date(Vinst$Date) | Vsrc[,"Version"] > Vinst$Version
+  }
 # install
-if(doinst) message("installB will now install ", package)
-if(doinst) devtools::install(paste0(path, "/", package))
-if(load) loadAndMessage(package)
+if(doinst) 
+  {
+  message("installB will now install ", package)
+  devtools::install(paste0(path, "/", package))
+  }
+if(load) loadAndMessage(package, quiet=quiet)
 }
 
-# installE / installO / installR / installM ------------------------------------
+# installA ---------------------------------------------------------------------
 
 #' @export
 #' @rdname installB
-installE <- function(...) installB(package="extremeStat", ...)
-#' @export
-#' @rdname installB
-installO <- function(...) installB(package="OSMscale", ...)
-#' @export
-#' @rdname installB
-installR <- function(...) installB(package="rdwd", ...)
-#' @export
-#' @rdname installB
-installM <- function(...) installB(package="mhmVis", ...)
+installA <- function(path="S:/Dropbox/Rpack", quiet=TRUE, ...) 
+{
+path <- pathFinder(path)
+packs <- dir(path)
+packs <- packs[packs!="0-archive"]
+for(p in packs) installB(package=p, path=path, quiet=quiet, load=FALSE, ...)
+for(p in packs) installB(package=p, path=path, quiet=quiet, ...)
+}
+
 
 # pathFinder -------------------------------------------------------------------
 
@@ -156,8 +169,9 @@ pathFinder <- function(path) # adjust path based on computer currently used:
 #' @rdname installB
 loadAndMessage <- function(package, quiet=TRUE)
 {
-if(quiet) suppressWarnings(require(package, character.only=TRUE, quietly=TRUE))  else
-                           require(package, character.only=TRUE, quietly=TRUE)
+if(quiet) suppressMessages(suppressWarnings(
+              require(package, character.only=TRUE, quietly=TRUE)))  else
+              require(package, character.only=TRUE, quietly=TRUE)
 # prepare message
 version <- utils::packageDescription(package)$Version
 date <- utils::packageDescription(package)$Date
@@ -212,13 +226,14 @@ detach.all <- function()
 #pks <- rev(names(c(sessionInfo()$otherPkgs, sessionInfo()$loadedOnly)))
 pks <- names(sessionInfo()$otherPkgs)
 # put lowest dependency at end:
-for(k in c("pbapply","extremeStat","rdwd","OSMscale","berryFunctions","devtools")) 
+for(k in c("pbapply","extremeStat","rdwd","OSMscale","berryFunctions","devtools"))
   {
   i <- k==pks  ;  if( any(i) ) pks <- c(pks[!i], pks[i])
   }
 message("detaching and unloading: ", toString(pks))
-unload <- function(x) try({unloadNamespace(x); detach(x, character.only=TRUE, unload=TRUE)})
-dummy <- lapply(paste0('package:',pks), unload)
+unload <- function(x) try({unloadNamespace(x) 
+                           detach(paste0('package:',x), character.only=TRUE, unload=TRUE)})
+dummy <- lapply(pks, unload)
 }
 
 # ------------------------------------------------------------------------------

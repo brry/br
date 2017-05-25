@@ -2,26 +2,17 @@
 % Please edit documentation in R/installB.R
 \name{installB}
 \alias{installB}
-\alias{installE}
-\alias{installO}
-\alias{installR}
-\alias{installM}
+\alias{installA}
 \alias{pathFinder}
 \alias{loadAndMessage}
 \alias{loadPackages}
 \alias{detach.all}
 \title{install packages from local drive}
 \usage{
-installB(package = "berryFunctions", path = "S:/Dropbox/Rpack",
-  onlyupdate = TRUE, load = TRUE)
+installB(package = NA, path = "S:/Dropbox/Rpack", force = FALSE,
+  load = TRUE)
 
-installE(...)
-
-installO(...)
-
-installR(...)
-
-installM(...)
+installA(path = "S:/Dropbox/Rpack", ...)
 
 pathFinder(path)
 
@@ -32,12 +23,11 @@ loadPackages(ask = TRUE)
 detach.all()
 }
 \arguments{
-\item{package}{Package name. DEFAULT: "berryFunctions"}
+\item{package}{Package name. DEFAULT: NA (interactive selection)}
 
 \item{path}{Path containing package folder. DEFAULT: "S:/Dropbox/Rpack"}
 
-\item{onlyupdate}{Logical. Only install if the version is outdated? 
-FALSE to always install. DEFAULT: TRUE}
+\item{force}{Logical. Even install if the version is not outdated? DEFAULT: FALSE}
 
 \item{load}{Logical. Also call loadAndMessage? DEFAULT: TRUE}
 
@@ -50,8 +40,7 @@ FALSE to always install. DEFAULT: TRUE}
 \description{
 \bold{installB} removes function objects from workspace and tries to unload
       reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
-\bold{installE}, {installM}, {installO} and \bold{installR} are shortcuts to installB with the
-      default package="extremeStat", "mhmVis", "OSMscale" or "rdwd".\cr
+\bold{installA} runs this for all my packages.\cr
 \bold{pathFinder} changes the path based on the computer used.\cr
 \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 \bold{loadPackages} loads a number packages I always like to have in the search path.\cr

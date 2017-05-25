@@ -2,11 +2,8 @@
 
 export(allFunctions)
 export(detach.all)
+export(installA)
 export(installB)
-export(installE)
-export(installM)
-export(installO)
-export(installR)
 export(loadAndMessage)
 export(loadPackages)
 export(pathFinder)
