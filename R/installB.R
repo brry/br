@@ -139,6 +139,7 @@ installA <- function(path="S:/Dropbox/Rpack", quiet=TRUE, ...)
 path <- pathFinder(path)
 packs <- dir(path)
 packs <- packs[packs!="0-archive"]
+packs <- packs[packs!="shapeInteractive"]
 for(p in packs) installB(package=p, path=path, quiet=quiet, load=FALSE, ...)
 for(p in packs) installB(package=p, path=path, quiet=quiet, ...)
 }
