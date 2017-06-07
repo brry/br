@@ -227,6 +227,7 @@ detach.all <- function()
 {
 #pks <- rev(names(c(sessionInfo()$otherPkgs, sessionInfo()$loadedOnly)))
 pks <- names(sessionInfo()$otherPkgs)
+if("visGPX" %in% pks | "mhmVis" %in% pks) pks <- c(pks, "OSMscale")
 # put lowest dependency at end:
 for(k in c("pbapply","extremeStat","rdwd","OSMscale","berryFunctions","devtools"))
   {
@@ -234,8 +235,10 @@ for(k in c("pbapply","extremeStat","rdwd","OSMscale","berryFunctions","devtools"
   }
 message("detaching and unloading: ", toString(pks))
 unload <- function(x) try({unloadNamespace(x) 
-                           detach(paste0('package:',x), character.only=TRUE, unload=TRUE)})
-dummy <- lapply(pks, unload)
+                           detach(paste0('package:',x), character.only=TRUE, unload=TRUE)},
+                          silent=TRUE)
+lapply(pks, unload)
+return(invisible(NULL))
 }
 
 # ------------------------------------------------------------------------------
