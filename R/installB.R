@@ -15,7 +15,7 @@
 #' @seealso \code{\link{packageDescription}}, \code{\link{read.dcf}}
 #' @keywords package
 #' @importFrom devtools install
-#' @importFrom utils packageDescription sessionInfo
+#' @importFrom utils packageDescription sessionInfo flush.console menu
 #' @examples
 #' \dontrun{
 #' # Here's what you could write into your Rprofile.site:
@@ -125,6 +125,7 @@ if(force) doinst <- TRUE else
 if(doinst) 
   {
   message("installB will now install ", package)
+  utils::flush.console()
   devtools::install(paste0(path, "/", package))
   }
 if(load) loadAndMessage(package, quiet=quiet)

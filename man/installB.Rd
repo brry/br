@@ -10,9 +10,9 @@
 \title{install packages from local drive}
 \usage{
 installB(package = NA, path = "S:/Dropbox/Rpack", force = FALSE,
-  load = TRUE)
+  load = TRUE, quiet = FALSE)
 
-installA(path = "S:/Dropbox/Rpack", ...)
+installA(path = "S:/Dropbox/Rpack", quiet = TRUE, ...)
 
 pathFinder(path)
 
