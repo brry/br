@@ -6,9 +6,11 @@
 #' @examples
 #' # allFunctions()
 #'
+#' @param package Name(s) of packages. If NA, all in my package folder. DEFAULT: NA
 #' @param \dots Arguments passed to \code{combineFiles} like quiet=TRUE
 #'
 allFunctions <- function(
+package=NA,
 ...
 )
 {
@@ -21,12 +23,42 @@ allFunctions <- function(
   if(berry& linux)  setwd("/home/berry/Dropbox/Rpack")
   if(work) setwd("C:/Users/boessenkool/Dropbox/Rpack")
   
-  d <- dir()[-1]
-  d <- dir(paste0(d,"/R"), full.names=TRUE)
+  if(all(is.na(package))) package <- dir()[-1]
+  d <- dir(paste0(package,"/R"), full.names=TRUE)
 
   outFile <- paste0("0-archive/__All_functions_", Sys.Date(), ".r")
   berryFunctions::combineFiles(inFiles=d, outFile=outFile, ...)
   if(!linux) system2("open", outFile) else system2("xdg-open", outFile)
   outFile
+
+}
+
+
+#' Packages in new R installation
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June 2017
+#' @export
+#' @importFrom utils install.packages
+packsNewR <- function()
+{
+packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign",
+"zoo", "TeachingDemos", "ade4", "data.table", "microbenchmark", "nortest", "plotrix", 
+"rgl", "xts", "zoom", "zyp", "gstat", "numbers", "readxl", "rversion", "lattice", 
+
+"knitr", "devtools","rmarkdown", "roxygen2", "testthat", "extremeStat",
+
+"rgdal", "rJava", "rgeos", "spatstat", "OSMscale", "geoR", "mapdata", "maps", 
+"maptools","leaflet","mapview", "sf","dygraphs", "animation"
+) 
+
+isinstalled <- function(p)    # is a package installed and usable?
+ {
+ out <- requireNamespace(p, quietly=TRUE)
+ try(unloadNamespace(p), silent=TRUE)
+ out
+}
+message("Checking ",length(packs)," packages for installation ...")
+inst <- sapply(packs, isinstalled)
+message("installB::packsNewR will install ",sum(!inst)," packages (+ dependencies) ...")
+install.packages(packs[!inst])
 
 }

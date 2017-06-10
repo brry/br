@@ -4,9 +4,11 @@
 \alias{allFunctions}
 \title{create and open a file with the content of all the functions in all my packages}
 \usage{
-allFunctions(...)
+allFunctions(package = NA, ...)
 }
 \arguments{
+\item{package}{Name(s) of packages. If NA, all in my package folder. DEFAULT: NA}
+
 \item{\dots}{Arguments passed to \code{combineFiles} like quiet=TRUE}
 }
 \value{
