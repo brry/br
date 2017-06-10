@@ -42,7 +42,7 @@ packsNewR <- function()
 {
 packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign",
 "zoo", "TeachingDemos", "ade4", "data.table", "microbenchmark", "nortest", "plotrix", 
-"rgl", "xts", "zoom", "zyp", "gstat", "numbers", "readxl", "rversion", "lattice", 
+"rgl", "xts", "zoom", "zyp", "gstat", "numbers", "readxl", "lattice", 
 
 "knitr", "devtools","rmarkdown", "roxygen2", "testthat", "extremeStat",
 
@@ -52,13 +52,16 @@ packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign",
 
 isinstalled <- function(p)    # is a package installed and usable?
  {
- out <- requireNamespace(p, quietly=TRUE)
+ suppressMessages(suppressWarnings(
+ {out <- requireNamespace(p, quietly=TRUE)
  try(unloadNamespace(p), silent=TRUE)
+ }))
  out
 }
 message("Checking ",length(packs)," packages for installation ...")
+if(isinstalled("pbapply")) sapply <- pbapply::pbsapply
 inst <- sapply(packs, isinstalled)
 message("installB::packsNewR will install ",sum(!inst)," packages (+ dependencies) ...")
-install.packages(packs[!inst])
-
+if(any(!inst)) install.packages(packs[!inst])
+loadPackages(ask=FALSE)
 }
