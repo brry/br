@@ -135,6 +135,9 @@ if(load) loadAndMessage(package, quiet=quiet)
 
 #' @export
 #' @rdname installB
+# @importFrom utils getFromNamespace
+#' @importFrom git2r repository status
+
 installA <- function(path="S:/Dropbox/Rpack", quiet=TRUE, ...) 
 {
 path <- pathFinder(path)
@@ -143,6 +146,17 @@ packs <- packs[packs!="0-archive"]
 packs <- packs[packs!="shapeInteractive"]
 for(p in packs) installB(package=p, path=path, quiet=quiet, load=FALSE, ...)
 for(p in packs) installB(package=p, path=path, quiet=quiet, ...)
+# check for unstaged git changes:
+for(p in packs)
+{
+r <- git2r::repository(file.path(path, p), discover = TRUE)
+st <- unlist(git2r::status(r))
+if(!is.null(st)) message(length(st), " unstaged changes in ",format(p,width=15),
+                         ": ", toString(st))
+}
+# getting uncommited changes via devtoools:::git_sync_status -> git2r::fetch 
+# fails due to failing ssh authentification
+# When I stage changes, I almost always commit immediately, so this is enough
 }
 
 
