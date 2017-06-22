@@ -3,6 +3,7 @@
 #' @return file path
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Okt 2016
 #' @export
+#' @importFrom tools package_dependencies
 #' @examples
 #' # allFunctions()
 #'
@@ -22,7 +23,7 @@ package=NA,
   if(berry&!linux)           setwd("S:/Dropbox/Rpack")
   if(berry& linux)  setwd("/home/berry/Dropbox/Rpack")
   if(work) setwd("C:/Users/boessenkool/Dropbox/Rpack")
-  
+
   if(all(is.na(package))) package <- dir()[-1]
   d <- dir(paste0(package,"/R"), full.names=TRUE)
 
@@ -40,15 +41,26 @@ package=NA,
 #' @importFrom utils install.packages
 packsNewR <- function()
 {
-packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign",
-"zoo", "TeachingDemos", "ade4", "data.table", "microbenchmark", "nortest", "plotrix", 
-"rgl", "xts", "zoom", "zyp", "gstat", "numbers", "readxl", "lattice", 
-
+packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
+"zoo", "TeachingDemos", "ade4", "data.table", "microbenchmark", "nortest", "plotrix",
+"rgl", "xts", "zoom", "zyp", "gstat", "numbers", "readxl", "lattice",
+"gtools", "ncdf4", "pbapply",
 "knitr", "devtools","rmarkdown", "roxygen2", "testthat", "extremeStat",
 
-"rgdal", "rJava", "rgeos", "spatstat", "OSMscale", "geoR", "mapdata", "maps", 
-"maptools","leaflet","mapview", "sf","dygraphs", "animation"
-) 
+"rgdal", "rJava", "rgeos", "spatstat", "OSMscale", "geoR", "mapdata", "maps",
+"raster", "RandomFields",
+"maptools", "leaflet", "mapview", "sf", "dygraphs", "sp", "animation", "ggplot2",
+"hexbin", "jpeg", "png", "rstudioapi"
+)
+
+message("Getting package dependencies ...")
+basepacks <- c("base", "compiler", "datasets", "grDevices",
+        "graphics", "grid", "methods", "parallel", "profile", "splines",
+        "stats", "stats4", "tcltk", "tools", "translations", "utils")
+deps <- tools::package_dependencies(packs, recursive=TRUE)
+deps <- unique(unlist(deps))
+deps <- deps[!deps %in% basepacks]
+packs <- unique(c(deps,packs))
 
 isinstalled <- function(p)    # is a package installed and usable?
  {
@@ -61,7 +73,7 @@ isinstalled <- function(p)    # is a package installed and usable?
 message("Checking ",length(packs)," packages for installation ...")
 if(isinstalled("pbapply")) sapply <- pbapply::pbsapply
 inst <- sapply(packs, isinstalled)
-message("installB::packsNewR will install ",sum(!inst)," packages (+ dependencies) ...")
+message("installB::packsNewR will install ",sum(!inst)," packages ...")
 if(any(!inst)) install.packages(packs[!inst])
 loadPackages(ask=FALSE)
 }
