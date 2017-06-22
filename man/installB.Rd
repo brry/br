@@ -6,8 +6,8 @@
 \alias{pathFinder}
 \alias{loadAndMessage}
 \alias{loadPackages}
-\alias{detach.all}
-\alias{isinstalled}
+\alias{detachAll}
+\alias{isInstalled}
 \title{install packages from local drive}
 \usage{
 installB(package = NA, path = "S:/Dropbox/Rpack", force = FALSE,
@@ -21,9 +21,9 @@ loadAndMessage(package, quiet = TRUE)
 
 loadPackages(ask = TRUE)
 
-detach.all()
+detachAll()
 
-isinstalled(package)
+isInstalled(package)
 }
 \arguments{
 \item{package}{Package name. DEFAULT: NA (interactive selection)}
@@ -49,8 +49,8 @@ isinstalled(package)
 \bold{pathFinder} changes the path based on the computer used.\cr
 \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 \bold{loadPackages} loads a number of packages I always like to have in the search path.\cr
-\bold{detach.all} unloads all packages in the search path.\cr
-\bold{isinstalled} checks whether a package is available and usable
+\bold{detachAll} unloads all packages in the search path.\cr
+\bold{isInstalled} checks whether a package is available and usable
 }
 \examples{
 \dontrun{

@@ -9,8 +9,8 @@
 #' \bold{pathFinder} changes the path based on the computer used.\cr
 #' \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 #' \bold{loadPackages} loads a number of packages I always like to have in the search path.\cr
-#' \bold{detach.all} unloads all packages in the search path.\cr
-#' \bold{isinstalled} checks whether a package is available and usable
+#' \bold{detachAll} unloads all packages in the search path.\cr
+#' \bold{isInstalled} checks whether a package is available and usable
 #'
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014 - Nov 2016
 #' @seealso \code{\link{packageDescription}}, \code{\link{read.dcf}}
@@ -221,11 +221,11 @@ cat("getwd() : ", getwd(), "\n")
 cat("-----------------------------------------------\n")
 }
 
-# detach.all -------------------------------------------------------------------
+# detachAll -------------------------------------------------------------------
 
 #' @export
 #' @rdname installB
-detach.all <- function()
+detachAll <- function()
 {
 #pks <- rev(names(c(sessionInfo()$otherPkgs, sessionInfo()$loadedOnly)))
 pks <- names(sessionInfo()$otherPkgs)
@@ -281,12 +281,12 @@ package=NA,
 
 }
 
-# isinstalled ------------------------------------------------------------------
+# isInstalled ------------------------------------------------------------------
 
 #' @export
 #' @rdname installB
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June 2017
-isinstalled <- function(package)    # is a package installed and usable?
+isInstalled <- function(package)    # is a package installed and usable?
   {
   suppressMessages(suppressWarnings(
   {out <- requireNamespace(package, quietly=TRUE)
@@ -325,8 +325,8 @@ deps <- deps[!deps %in% basepacks]
 packs <- unique(c(deps,packs))
 
 message("Checking ",length(packs)," packages for installation ...")
-if(isinstalled("pbapply")) sapply <- pbapply::pbsapply
-inst <- sapply(packs, isinstalled)
+if(isInstalled("pbapply")) sapply <- pbapply::pbsapply
+inst <- sapply(packs, isInstalled)
 message("installB::packsNewR will install ",sum(!inst)," packages ...")
 if(any(!inst)) install.packages(packs[!inst])
 loadPackages(ask=FALSE)
