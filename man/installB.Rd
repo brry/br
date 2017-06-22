@@ -48,7 +48,7 @@ isinstalled(package)
 \bold{installA} runs this for all my packages.\cr
 \bold{pathFinder} changes the path based on the computer used.\cr
 \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
-\bold{loadPackages} loads a number packages I always like to have in the search path.\cr
+\bold{loadPackages} loads a number of packages I always like to have in the search path.\cr
 \bold{detach.all} unloads all packages in the search path.\cr
 \bold{isinstalled} checks whether a package is available and usable
 }
@@ -66,36 +66,18 @@ options(repos=r)})
 # create character string  base::desktop
 desktop <- "C:/Users/berry/Desktop"
 
-grDevices::windows.options(width=5.5, height=5)
+# Loading Packages
+if(interactive()) installB::loadPackages(ask=FALSE)
+
 
 # Search path for Tinn R:
 .trPaths <- paste(Sys.getenv('LOCALAPPDATA'),
 '\\\\Temp\\\\Tinn-R', c('', 'search.txt', 'objects.txt',
 'file.r', 'selection.r', 'block.r','lines.r'),sep='\\\\')
 
-# Loading Packages
-if(interactive()) installB::loadPackages(ask=FALSE)
-
 # if install.packages and download.files give HTTP status 403 forbidden:
 options(url.method="libcurl")
 
-
-
-# Here's what I have in my Rconsole file:
-# Style This can be `yes' (for MDI) or `no' (for SDI).
-MDI = no
-# Dimensions (in characters) of the console.
-rows = 15
-columns = 100
-# Dimensions (in characters) of the internal pager.
-pgrows = 15
-pgcolumns = 100
-# Initial position of the console (pixels, relative to the workspace for MDI)
-xconsole = 1088
-yconsole = 716    # or 840
-# Initial position of the graphics window
-xgraphics = -5
-ygraphics = 0
 } # end dontrun
 
 }
