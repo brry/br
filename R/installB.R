@@ -9,7 +9,8 @@
 #' \bold{pathFinder} changes the path based on the computer used.\cr
 #' \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 #' \bold{loadPackages} loads a number packages I always like to have in the search path.\cr
-#' \bold{detach.all} unloads all packages in the search path.
+#' \bold{detach.all} unloads all packages in the search path.\cr
+#' \bold{isinstalled} checks whether a package is available and usable
 #'
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014 - Nov 2016
 #' @seealso \code{\link{packageDescription}}, \code{\link{read.dcf}}
@@ -298,6 +299,20 @@ package=NA,
 
 }
 
+# isinstalled ------------------------------------------------------------------
+
+#' @export
+#' @rdname installB
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June 2017
+isinstalled <- function(package)    # is a package installed and usable?
+  {
+  suppressMessages(suppressWarnings(
+  {out <- requireNamespace(package, quietly=TRUE)
+  try(unloadNamespace(package), silent=TRUE)
+  }))
+  out
+  }
+
 # packsNewR --------------------------------------------------------------------
 
 #' Packages in new R installation
@@ -327,14 +342,6 @@ deps <- unique(unlist(deps))
 deps <- deps[!deps %in% basepacks]
 packs <- unique(c(deps,packs))
 
-isinstalled <- function(p)    # is a package installed and usable?
- {
- suppressMessages(suppressWarnings(
- {out <- requireNamespace(p, quietly=TRUE)
- try(unloadNamespace(p), silent=TRUE)
- }))
- out
-}
 message("Checking ",length(packs)," packages for installation ...")
 if(isinstalled("pbapply")) sapply <- pbapply::pbsapply
 inst <- sapply(packs, isinstalled)
