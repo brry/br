@@ -66,6 +66,7 @@
 #' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Rpack"
 #' @param force Logical. Even install if the version is not outdated? DEFAULT: FALSE
 #' @param load Logical. Also call loadAndMessage? DEFAULT: TRUE
+#' @param unloadrevdep Try to unload some common reverse dependencies? DEFAULT: TRUE
 #' @param quiet Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage
 #' @param ask Logical for loadPackages. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE
 #' @param \ldots Optional for installE and isntallO: path argument passed to installB
@@ -79,6 +80,7 @@ package=NA,
 path="S:/Dropbox/Rpack",
 force=FALSE,
 load=TRUE,
+unloadrevdep=TRUE,
 quiet=FALSE
 )
 {
@@ -102,10 +104,13 @@ l <- ls(globalenv())
 rm(list=l[l %in% d], envir=globalenv())
 #
 # unload package dependencies to avoid messages "unloadNamespace * not successful. Forcing unload." 
+if(unloadrevdep){
+try(unloadNamespace("rfs"), silent=TRUE)
 try(unloadNamespace("rdwd"), silent=TRUE)
 try(unloadNamespace("mhmVis"), silent=TRUE)
 try(unloadNamespace("extremeStat"), silent=TRUE)
 try(unloadNamespace("OSMscale"), silent=TRUE)
+}
 #
 # check if installed version is outdated:
 if(force) doinst <- TRUE else
@@ -145,7 +150,7 @@ packs <- dir(path)
 packs <- packs[packs!="0-archive"]
 packs <- packs[packs!="shapeInteractive"]
 for(p in packs) installB(package=p, path=path, quiet=quiet, load=FALSE, ...)
-for(p in packs) installB(package=p, path=path, quiet=quiet, ...)
+for(p in packs) installB(package=p, path=path, quiet=quiet, unloadrevdep=FALSE, ...)
 # check for unstaged git changes:
 for(p in packs)
 {

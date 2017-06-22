@@ -10,7 +10,7 @@
 \title{install packages from local drive}
 \usage{
 installB(package = NA, path = "S:/Dropbox/Rpack", force = FALSE,
-  load = TRUE, quiet = FALSE)
+  load = TRUE, unloadrevdep = TRUE, quiet = FALSE)
 
 installA(path = "S:/Dropbox/Rpack", quiet = TRUE, ...)
 
@@ -30,6 +30,8 @@ detach.all()
 \item{force}{Logical. Even install if the version is not outdated? DEFAULT: FALSE}
 
 \item{load}{Logical. Also call loadAndMessage? DEFAULT: TRUE}
+
+\item{unloadrevdep}{Try to unload some common reverse dependencies? DEFAULT: TRUE}
 
 \item{quiet}{Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage}
 
