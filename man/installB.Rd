@@ -64,10 +64,10 @@ r["CRAN"] <- "https://cran.rstudio.com" # 0-cloud
 options(repos=r)})
 
 # create character string  base::desktop
-desktop <- "C:/Users/berry/Desktop"
+desktop <- "C:/Users/berry/Desktop" # linux "/home/berry/Desktop"
 
 # Loading Packages
-if(interactive()) installB::loadPackages(ask=FALSE)
+if(interactive()&requireNamespace("installB",quietly=TRUE)) installB::loadPackages(ask=FALSE)
 
 
 # Search path for Tinn R:
