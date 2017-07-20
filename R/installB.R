@@ -177,8 +177,10 @@ if(quiet) suppressMessages(suppressWarnings(
               require(package, character.only=TRUE, quietly=TRUE)))  else
               require(package, character.only=TRUE, quietly=TRUE)
 # prepare message
-version <- utils::packageDescription(package)$Version
-date <- utils::packageDescription(package)$Date
+packdesc <- utils::packageDescription(package)
+if(all(is.na(packdesc))) return(paste0("loading package '", package, "' failed."))
+version <- packdesc$Version
+date    <- packdesc$Date
 message("Loaded package ", format(package,width=15), "Version ",
           format(version,width=7), " from ", date)
 }
