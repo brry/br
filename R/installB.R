@@ -114,7 +114,7 @@ if(doinst)
   {
   message("installB will now install ", package)
   utils::flush.console()
-  devtools::install(paste0(path, "/", package))
+  try(devtools::install(paste0(path, "/", package)))
   }
 if(load) loadAndMessage(package, quiet=quiet)
 }
