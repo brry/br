@@ -145,6 +145,18 @@ if(!is.null(st)) message(length(st), " unstaged changes in ",format(p,width=15),
 # getting uncommited changes via devtoools:::git_sync_status -> git2r::fetch 
 # fails due to failing ssh authentification
 # When I stage changes, I almost always commit immediately, so this is enough
+
+# Other git projects:
+message("-----")
+path <- normalizePath(file.path(path, ".."), winslash="/")
+folders <- paste0("R/",c("course","latex","misc","PrecTemp","rclick","rhydro"))
+for(p in c(folders,"Faith/chords"))
+{
+r <- git2r::repository(file.path(path, p), discover = TRUE)
+st <- unlist(git2r::status(r))
+if(!is.null(st)) message(length(st), " unstaged changes in ",format(p,width=15),
+                         ": ", toString(st))
+}
 }
 
 
