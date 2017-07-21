@@ -4,7 +4,10 @@
 \alias{packsNewR}
 \title{Packages in new R installation}
 \usage{
-packsNewR()
+packsNewR(...)
+}
+\arguments{
+\item{\dots}{Arguments passed to \code{\link{install.packages}}}
 }
 \description{
 Packages in new R installation

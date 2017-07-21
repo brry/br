@@ -304,7 +304,6 @@ isInstalled <- function(package)    # is a package installed and usable?
   {
   suppressMessages(suppressWarnings(
   {out <- requireNamespace(package, quietly=TRUE)
-  try(unloadNamespace(package), silent=TRUE)
   }))
   out
   }
@@ -315,7 +314,8 @@ isInstalled <- function(package)    # is a package installed and usable?
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June 2017
 #' @export
 #' @importFrom utils install.packages
-packsNewR <- function()
+#' @param \dots Arguments passed to \code{\link{install.packages}}
+packsNewR <- function(...)
 {
 packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "zoo", "TeachingDemos", "ade4", "data.table", "microbenchmark", "nortest", "plotrix",
@@ -337,13 +337,20 @@ deps <- tools::package_dependencies(packs, recursive=TRUE)
 deps <- unique(unlist(deps))
 deps <- deps[!deps %in% basepacks]
 packs <- unique(c(deps,packs))
+if(!isInstalled("pbapply")) install.packages("pbapply")
 
 message("Checking ",length(packs)," packages for installation ...")
-if(isInstalled("pbapply")) sapply <- pbapply::pbsapply
-inst <- sapply(packs, isInstalled)
-message("installB::packsNewR will install ",sum(!inst)," packages ...")
-if(any(!inst)) install.packages(packs[!inst])
-loadPackages(ask=FALSE)
+inst <- pbapply::pbsapply(packs, isInstalled) # [1:which(packs=="OpenStreetMap")]
+
+if(any(!inst)) 
+  {
+  message("installB::packsNewR will install ",sum(!inst)," packages ...")
+  Sys.sleep(1) # show message longer
+  pbapply::pbsapply(packs[!inst], install.packages, ...)
+  } else
+  message("All packages listed in installB::packsNewR are installed.")
+
+message("Done. To unload the ",length(packs)," checked packages, please restart R.")
 }
 
 
