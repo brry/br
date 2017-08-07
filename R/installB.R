@@ -2,7 +2,7 @@
 # package doc ------------------------------------------------------------------
 
 #' install packages from local drive
-#'
+#' 
 #' \bold{installB} removes function objects from workspace and tries to unload
 #'       reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
 #' \bold{installA} runs this for all my packages.\cr
@@ -11,7 +11,7 @@
 #' \bold{loadPackages} loads a number of packages I always like to have in the search path.\cr
 #' \bold{detachAll} unloads all packages in the search path.\cr
 #' \bold{isInstalled} checks whether a package is available and usable
-#'
+#' 
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014 - Nov 2016
 #' @seealso \code{\link{packageDescription}}, \code{\link{read.dcf}}
 #' @keywords package
@@ -20,17 +20,17 @@
 #' @examples
 #' \dontrun{
 #' # Here's what you could write into your Rprofile.site:
-#'
+#' 
 #' options(help_type="html")
-#'
+#' 
 #' # Set CRAN repository
 #' local({r <- getOption("repos")
 #' r["CRAN"] <- "https://cran.rstudio.com" # 0-cloud
 #' options(repos=r)})
-#'
+#' 
 #' # create character string  base::desktop
 #' desktop <- "C:/Users/berry/Desktop" # linux "/home/berry/Desktop"
-#'
+#' 
 #' # Loading Packages
 #' if(interactive()&requireNamespace("installB",quietly=TRUE)) installB::loadPackages(ask=FALSE)
 #' 
@@ -42,9 +42,9 @@
 #' 
 #' # if install.packages and download.files give HTTP status 403 forbidden:
 #' options(url.method="libcurl")
-#'
+#' 
 #' } # end dontrun
-#'
+#' 
 #' @param package Package name. DEFAULT: NA (interactive selection)
 #' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Rpack"
 #' @param force Logical. Even install if the version is not outdated? DEFAULT: FALSE
@@ -86,7 +86,7 @@ d <- gsub(".R", "", d, fixed=TRUE)
 l <- ls(globalenv())
 rm(list=l[l %in% d], envir=globalenv())
 #
-# unload package dependencies to avoid messages "unloadNamespace * not successful. Forcing unload." 
+# unload package dependencies to avoid messages "unloadNamespace * not successful. Forcing unload."
 if(unloadrevdep){
 try(unloadNamespace("rfs"), silent=TRUE)
 try(unloadNamespace("rdwd"), silent=TRUE)
@@ -110,7 +110,7 @@ if(force) doinst <- TRUE else
   doinst <- as.Date(Vsrc[,"Date"]) > as.Date(Vinst$Date) | Vsrc[,"Version"] > Vinst$Version
   }
 # install
-if(doinst) 
+if(doinst)
   {
   message("installB will now install ", package)
   utils::flush.console()
@@ -126,7 +126,7 @@ if(load) loadAndMessage(package, quiet=quiet)
 # @importFrom utils getFromNamespace
 #' @importFrom git2r repository status
 
-installA <- function(path="S:/Dropbox/Rpack", quiet=TRUE, ...) 
+installA <- function(path="S:/Dropbox/Rpack", quiet=TRUE, ...)
 {
 path <- pathFinder(path)
 packs <- dir(path)
@@ -142,7 +142,7 @@ st <- unlist(git2r::status(r))
 if(!is.null(st)) message(length(st), " unstaged changes in ",format(p,width=15),
                          ": ", toString(st))
 }
-# getting uncommited changes via devtoools:::git_sync_status -> git2r::fetch 
+# getting uncommited changes via devtoools:::git_sync_status -> git2r::fetch
 # fails due to failing ssh authentification
 # When I stage changes, I almost always commit immediately, so this is enough
 
@@ -250,7 +250,7 @@ for(k in c("pbapply","extremeStat","rdwd","OSMscale","berryFunctions","devtools"
   i <- k==pks  ;  if( any(i) ) pks <- c(pks[!i], pks[i])
   }
 message("detaching and unloading: ", toString(pks))
-unload <- function(x) try({unloadNamespace(x) 
+unload <- function(x) try({unloadNamespace(x)
                            detach(paste0('package:',x), character.only=TRUE, unload=TRUE)},
                           silent=TRUE)
 lapply(pks, unload)
@@ -260,17 +260,17 @@ return(invisible(NULL))
 # allFunctions -----------------------------------------------------------------
 
 #' create and open a file with the content of all the functions in all my packages
-#'
+#' 
 #' @return file path
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Okt 2016
 #' @export
 #' @importFrom tools package_dependencies
 #' @examples
 #' # allFunctions()
-#'
+#' 
 #' @param package Name(s) of packages. If NA, all in my package folder. DEFAULT: NA
 #' @param \dots Arguments passed to \code{combineFiles} like quiet=TRUE
-#'
+#' 
 allFunctions <- function(
 package=NA,
 ...
@@ -342,7 +342,7 @@ if(!isInstalled("pbapply")) install.packages("pbapply")
 message("Checking ",length(packs)," packages for installation ...")
 inst <- pbapply::pbsapply(packs, isInstalled) # [1:which(packs=="OpenStreetMap")]
 
-if(any(!inst)) 
+if(any(!inst))
   {
   message("installB::packsNewR will install ",sum(!inst)," packages ...")
   Sys.sleep(1) # show message longer
