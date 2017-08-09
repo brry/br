@@ -372,13 +372,15 @@ message("Correcting trailing spaces in files at ", path)
 owd <- setwd(path) ; on.exit(setwd(owd))
 remSpace <- function(file)
   {
-  d <- readLines(file, warn=FALSE)
-  trim <- function(x) while(endsWith(x," ")) x <- substring(x, 1, nchar(x)-1)
-  d <- sapply(d, trim)
+  d <- d_orig <- readLines(file, warn=FALSE)
+  trim <- function(x) {while(endsWith(x," ")) x <- substring(x, 1, nchar(x)-1); x}
+  d <- sapply(d, trim, USE.NAMES=FALSE)
   d[d=="#'"] <- "#' "
   writeLines(d, file)
+  sum(d_orig != d)
   }
-dummy <- sapply(dir(), remSpace)
-invisible(dummy)
+nchanges <- sapply(dir(), remSpace)
+if(any(nchanges!=0)) message("Number of lines changed:")
+return(nchanges[nchanges!=0])
 }
 
