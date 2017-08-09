@@ -167,8 +167,7 @@ if(!is.null(st)) message(length(st), " unstaged changes in ",format(p,width=15),
 pathFinder <- function(path) # adjust path based on computer currently used:
 {
   # remove end slash
-  while(substring(path, nchar(path))=="/")
-    path <- substring(path, 1, nchar(path)-1)
+  while(endsWith(path,"/")) path <- substring(path, 1, nchar(path)-1)
   # work PC path change:
   if(!file.exists(path)) path <- gsub("S:", "C:/Users/boessenkool", path)
   # laptop linux path change:
@@ -353,4 +352,33 @@ if(any(!inst))
 message("Done. To unload the ",length(packs)," checked packages, please restart R.")
 }
 
+
+# codeSpaces -------------------------------------------------------------------
+
+#' @title Correct spaces in source code
+#' @description Remove trailing spaces in source code
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2017
+#' @export
+#' @param path Package path, Character string. DEFAULT: "." (current getwd)
+codeSpaces <- function(path=".")
+{
+path <- normalizePath(path, winslash="/")
+if(endsWith(path, "/R"))         path <- substr(path, 1, nchar(path)-2)
+if(endsWith(path, "/man"))       path <- substr(path, 1, nchar(path)-4)
+if(endsWith(path, "/inst"))      path <- substr(path, 1, nchar(path)-5)
+if(endsWith(path, "/vignettes")) path <- substr(path, 1, nchar(path)-10)
+path <- paste0(path,"/R")
+message("Correcting trailing spaces in files at ", path)
+owd <- setwd(path) ; on.exit(setwd(owd))
+remSpace <- function(file)
+  {
+  d <- readLines(file, warn=FALSE)
+  trim <- function(x) while(endsWith(x," ")) x <- substring(x, 1, nchar(x)-1)
+  d <- sapply(d, trim)
+  d[d=="#'"] <- "#' "
+  writeLines(d, file)
+  }
+dummy <- sapply(dir(), remSpace)
+invisible(dummy)
+}
 
