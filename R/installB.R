@@ -58,6 +58,8 @@
 # installB ---------------------------------------------------------------------
 
 #' @export
+#' @importFrom utils compareVersion
+#' 
 installB <- function(
 package=NA,
 path="S:/Dropbox/Rpack",
@@ -107,7 +109,8 @@ if(force) doinst <- TRUE else
   if(!file.exists(descfile)) stop("The file '", descfile, "' does not exist.")
   Vsrc <- read.dcf(file=descfile, fields=c("Date","Version"))
   # install if outdated:
-  doinst <- as.Date(Vsrc[,"Date"]) > as.Date(Vinst$Date) | Vsrc[,"Version"] > Vinst$Version
+  doinst <- as.Date(Vsrc[,"Date"]) > as.Date(Vinst$Date) | 
+            compareVersion(Vsrc[,"Version"], Vinst$Version)==1
   }
 # install
 if(doinst)
