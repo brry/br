@@ -366,6 +366,23 @@ message("Done. To unload the ",length(packs)," checked packages, please restart 
 }
 
 
+# packagePath ------------------------------------------------------------------
+
+#' @title Base path of package at current getwd
+#' @description Base path of package at current getwd
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2017
+#' @export
+#' @param path Package path, Character string. DEFAULT: "." (current getwd)
+packagePath <- function(path=".")
+{
+path <- normalizePath(path, winslash="/")
+if(endsWith(path, "/R"))         path <- substr(path, 1, nchar(path)-2)
+if(endsWith(path, "/man"))       path <- substr(path, 1, nchar(path)-4)
+if(endsWith(path, "/inst"))      path <- substr(path, 1, nchar(path)-5)
+if(endsWith(path, "/vignettes")) path <- substr(path, 1, nchar(path)-10)
+path
+}
+
 # codeSpaces -------------------------------------------------------------------
 
 #' @title Correct spaces in source code
@@ -375,12 +392,7 @@ message("Done. To unload the ",length(packs)," checked packages, please restart 
 #' @param path Package path, Character string. DEFAULT: "." (current getwd)
 codeSpaces <- function(path=".")
 {
-path <- normalizePath(path, winslash="/")
-if(endsWith(path, "/R"))         path <- substr(path, 1, nchar(path)-2)
-if(endsWith(path, "/man"))       path <- substr(path, 1, nchar(path)-4)
-if(endsWith(path, "/inst"))      path <- substr(path, 1, nchar(path)-5)
-if(endsWith(path, "/vignettes")) path <- substr(path, 1, nchar(path)-10)
-path <- paste0(path,"/R")
+path <- paste0(packagePath(path),"/R")
 message("Correcting trailing spaces in files at ", path)
 owd <- setwd(path) ; on.exit(setwd(owd))
 remSpace <- function(file)
