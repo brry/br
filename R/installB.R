@@ -272,7 +272,6 @@ return(invisible(NULL))
 #' @return file path
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Okt 2016
 #' @export
-#' @importFrom tools package_dependencies
 #' @examples
 #' # allFunctions()
 #' 
@@ -326,6 +325,7 @@ isInstalled <- function(package)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June 2017
 #' @export
 #' @importFrom utils install.packages
+#' @importFrom tools package_dependencies
 #' @param \dots Arguments passed to \code{\link{install.packages}}
 packsNewR <- function(...)
 {
@@ -425,6 +425,8 @@ return(nchanges[nchanges!=0])
 #' funs <- c("mean", "head", "head.data.frame",  "data.frame", "frame", "data_frame", "base::print")
 #' data.frame(isfound=sapply(funs, funInCode, code=code), 
 #'            shouldbefound=c(TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE))
+#'            
+#' funInCode("ABC::pack.dep", "ABC::pack_dep(A)")
 #' 
 #' @param funname Function name (character string)
 #' @param code    Code (character string)
@@ -436,9 +438,9 @@ funInCode <- function(funname, code)
   pack <- head(split,1)
   pack
   fun2 <- gsub(".", "\\.", fun1, fixed=TRUE)
-  fun2 <- paste0("[^a-zA-Z0-9_\\.]", fun2, "\\(")
-  out_name <- grepl(pattern=fun2, x=paste0(" ",code) )
-  out_pack <- grepl(paste0("[^a-zA-Z0-9_\\.]", pack,"::",fun1), x=code)
+  fun3 <- paste0("[^a-zA-Z0-9_\\.]", fun2, "\\(")
+  out_name <- grepl(pattern=fun3, x=paste0(" ",code) )
+  out_pack <- grepl(paste0("[^a-zA-Z0-9_\\.]", pack,"::",fun2), x=code)
   out_name | out_pack
   }
 
@@ -446,7 +448,10 @@ funInCode <- function(funname, code)
 # checkImports -----------------------------------------------------------------
 
 #' @title Check imports in source code
-#' @description For each file in package/R, check whether all used functions are imported
+#' @description For each file in package/R, check whether all used functions are imported.
+#'              There may be false positives: function names in comments or 
+#'              within character strings are included as well.
+#'              (Comment-only lines are ignored).
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2017
 #' @export
 #' @examples 

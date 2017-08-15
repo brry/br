@@ -13,7 +13,10 @@ checkImports(path = ".", filename = "checkImports.R")
 DEFAULT: "checkImports.R"}
 }
 \description{
-For each file in package/R, check whether all used functions are imported
+For each file in package/R, check whether all used functions are imported.
+             There may be false positives: function names in comments or 
+             within character strings are included as well.
+             (Comment-only lines are ignored).
 }
 \examples{
 \dontrun{ # exclude from checks

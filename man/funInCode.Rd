@@ -20,6 +20,8 @@ code <- "mean(pi); head(data.frame(A=1:5)); data_frame(7:9); do.call(base::print
 funs <- c("mean", "head", "head.data.frame",  "data.frame", "frame", "data_frame", "base::print")
 data.frame(isfound=sapply(funs, funInCode, code=code), 
            shouldbefound=c(TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE))
+           
+funInCode("ABC::pack.dep", "ABC::pack_dep(A)")
 
 }
 \seealso{
