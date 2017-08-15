@@ -497,8 +497,8 @@ codes <- sapply(dir("R/",full.names=TRUE), readLines, simplify=FALSE)
 # head(ns)
 # data.frame(loc=sort(sapply(codes,length)))
 
-cat("\n-----------------\n", file=filename, append=TRUE)
-cat("installB::checkImports,", as.character(Sys.time()), ",", length(codes), "files.", 
+cat("\n##-----------------\n", file=filename, append=TRUE)
+cat("## installB::checkImports,", as.character(Sys.time()), ",", length(codes), "files.\n\n", 
     file=filename, append=TRUE)
 
 if(isInstalled("pbapply")) sapply <- pbapply::pbsapply
@@ -509,7 +509,7 @@ imps <- sapply(names(codes), function(fname)  # one minute in berryFunctions (10
   x2 <- sub("^[[:space:]]*(.*?)[[:space:]]*$", "\\1", x, perl=TRUE)
   xcode <- toString(x[substr(x2,1,1)!="#"])
   # get function names in source code
-  fun <- sapply(ns$packfun, funInCode, code=xcode)
+  fun <- base::sapply(ns$packfun, funInCode, code=xcode)
   fun <- names(fun[fun])
   if(length(fun)==0) return(invisible(NULL))
   # get associated packages:
@@ -527,8 +527,8 @@ imps <- sapply(names(codes), function(fname)  # one minute in berryFunctions (10
   cat(fname, out, sep="\n", file=filename, append=TRUE)
   invisible(out)
   })
-cat("Done,", as.character(Sys.time()), file=filename, append=TRUE)
-cat("\n-----------------\n", file=filename, append=TRUE)
+cat("\n## Done,", as.character(Sys.time()), file=filename, append=TRUE)
+cat("\n##-----------------\n", file=filename, append=TRUE)
 # output:
 return(invisible(imps))
 }
