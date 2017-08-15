@@ -9,14 +9,12 @@
 #' \bold{pathFinder} changes the path based on the computer used.\cr
 #' \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 #' \bold{loadPackages} loads a number of packages I always like to have in the search path.\cr
-#' \bold{detachAll} unloads all packages in the search path.\cr
-#' \bold{isInstalled} checks whether a package is available and usable
 #' 
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014 - Nov 2016
 #' @seealso \code{\link{packageDescription}}, \code{\link{read.dcf}}
 #' @keywords package
 #' @importFrom devtools install
-#' @importFrom utils packageDescription sessionInfo flush.console menu
+#' @importFrom utils packageDescription flush.console menu
 #' @examples
 #' \dontrun{
 #' # Here's what you could write into your Rprofile.site:
@@ -167,7 +165,7 @@ if(!is.null(st)) message(length(st), " unstaged changes in ",format(p,width=15),
 
 #' @export
 #' @rdname installB
-pathFinder <- function(path) # adjust path based on computer currently used:
+pathFinder <- function(path="S:/Dropbox/Rpack") # adjust path based on computer currently used:
 {
   # remove end slash
   while(endsWith(path,"/")) path <- substring(path, 1, nchar(path)-1)
@@ -239,8 +237,16 @@ cat("-----------------------------------------------\n")
 
 # detachAll -------------------------------------------------------------------
 
+#' @title Detach all packages on search path
+#' @description Detach all packages on search path, as found by
+#'              \code{\link{sessionInfo}()$otherPkgs}.
+#'              It puts Berry's packages in descending dependency order.
+#'              It tries \code{\link{unloadNamespace}} and 
+#'              \code{\link{detach}(package:pkg, unload=TRUE)}.
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Sept 2016
+#' @importFrom utils sessionInfo
 #' @export
-#' @rdname installB
+
 detachAll <- function()
 {
 #pks <- rev(names(c(sessionInfo()$otherPkgs, sessionInfo()$loadedOnly)))
@@ -299,10 +305,14 @@ package=NA,
 
 # isInstalled ------------------------------------------------------------------
 
+#' @title Is a package installed and usable?
+#' @description Is a package installed and usable?
 #' @export
-#' @rdname installB
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June 2017
-isInstalled <- function(package)    # is a package installed and usable?
+#' 
+#' @param package Package character string passed to  \code{\link{requireNamespace}}
+#' 
+isInstalled <- function(package)  
   {
   suppressMessages(suppressWarnings(
   {out <- requireNamespace(package, quietly=TRUE)

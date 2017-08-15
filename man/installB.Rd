@@ -6,8 +6,6 @@
 \alias{pathFinder}
 \alias{loadAndMessage}
 \alias{loadPackages}
-\alias{detachAll}
-\alias{isInstalled}
 \title{install packages from local drive}
 \usage{
 installB(package = NA, path = "S:/Dropbox/Rpack", force = FALSE,
@@ -15,15 +13,11 @@ installB(package = NA, path = "S:/Dropbox/Rpack", force = FALSE,
 
 installA(path = "S:/Dropbox/Rpack", quiet = TRUE, ...)
 
-pathFinder(path)
+pathFinder(path = "S:/Dropbox/Rpack")
 
 loadAndMessage(package, quiet = TRUE)
 
 loadPackages(ask = TRUE)
-
-detachAll()
-
-isInstalled(package)
 }
 \arguments{
 \item{package}{Package name. DEFAULT: NA (interactive selection)}
@@ -49,8 +43,6 @@ isInstalled(package)
 \bold{pathFinder} changes the path based on the computer used.\cr
 \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
 \bold{loadPackages} loads a number of packages I always like to have in the search path.\cr
-\bold{detachAll} unloads all packages in the search path.\cr
-\bold{isInstalled} checks whether a package is available and usable
 }
 \examples{
 \dontrun{
@@ -86,7 +78,5 @@ options(url.method="libcurl")
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2014 - Nov 2016
-
-Berry Boessenkool, \email{berry-b@gmx.de}, June 2017
 }
 \keyword{package}
