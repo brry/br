@@ -93,6 +93,8 @@ try(unloadNamespace("rdwd"), silent=TRUE)
 try(unloadNamespace("mhmVis"), silent=TRUE)
 try(unloadNamespace("extremeStat"), silent=TRUE)
 try(unloadNamespace("OSMscale"), silent=TRUE)
+try(unloadNamespace(package), silent=TRUE) # if devtools::load_all was used, 
+# packageDescription would otherwise not return the date of the actually installed package
 }
 #
 # check if installed version is outdated:
