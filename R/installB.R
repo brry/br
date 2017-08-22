@@ -444,6 +444,17 @@ funInCode <- function(funname, code)
   out_name | out_pack
   }
 
+# funInCode2 <- function(code) {
+# find_functions <- function(x, y=vector(mode="character", length=0)) 
+# {
+# if(is.symbol(x)) { if(is.function(eval(x))) c(y, as.character(x))
+# } else {
+#   if(!is.language(x)) NULL else c(y, unlist(lapply(x, find_functions)))
+# }
+# }
+# unname(find_functions(parse(text=code)))
+# } 
+  
 
 # checkImports -----------------------------------------------------------------
 
