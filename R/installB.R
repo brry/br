@@ -468,6 +468,7 @@ checkImports <- function(path=".", filename="checkImports.R")
 {
 owd <- setwd(berryFunctions::packagePath(path))
 on.exit(setwd(owd), add=TRUE)
+filename <- berryFunctions::newFilename(filename)
 
 # All the functions already listed in namespace importFrom entries:
 ns <- readLines("NAMESPACE")
