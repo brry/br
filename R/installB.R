@@ -278,7 +278,7 @@ return(invisible(NULL))
 #' # allFunctions()
 #' 
 #' @param package Name(s) of packages. If NA, all in my package folder. 
-#'                DEFAULT: \code{berryFunctions::\link{packagePath}()}
+#'                DEFAULT: \code{berryFunctions::\link[berryFunctions]{packagePath}()}
 #' @param \dots Arguments passed to \code{combineFiles} like quiet=TRUE
 #' 
 allFunctions <- function(
