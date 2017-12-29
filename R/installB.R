@@ -277,29 +277,25 @@ return(invisible(NULL))
 #' @examples
 #' # allFunctions()
 #' 
-#' @param package Name(s) of packages. If NA, all in my package folder. DEFAULT: NA
+#' @param package Name(s) of packages. If NA, all in my package folder. 
+#'                DEFAULT: \code{berryFunctions::\link{packagePath}()}
 #' @param \dots Arguments passed to \code{combineFiles} like quiet=TRUE
 #' 
 allFunctions <- function(
-package=NA,
+package=berryFunctions::packagePath(),
 ...
 )
 {
+  force(package)
   owd <- getwd()
   on.exit(setwd(owd))
-  berry <- Sys.info()["user"]=="berry"
-  linux <- Sys.info()["sysname"]=="Linux"
-  work <- Sys.info()["nodename"]=="GK-PC-2"
-  if(berry&!linux)           setwd("S:/Dropbox/Rpack")
-  if(berry& linux)  setwd("/home/berry/Dropbox/Rpack")
-  if(work) setwd("C:/Users/boessenkool/Dropbox/Rpack")
-
+  setwd(pathFinder())
   if(all(is.na(package))) package <- dir()[-1]
   d <- dir(paste0(package,"/R"), full.names=TRUE)
 
   outFile <- paste0("0-archive/__All_functions_", Sys.Date(), ".r")
-  berryFunctions::combineFiles(inFiles=d, outFile=outFile, ...)
-  if(!linux) system2("open", outFile) else system2("xdg-open", outFile)
+  outFile <- berryFunctions::combineFiles(inFiles=d, outFile=outFile, ...)
+  berryFunctions::openFile(outFile)
   outFile
 
 }
@@ -339,7 +335,7 @@ packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "gtools", "ncdf4", "pbapply",
 "knitr", "devtools","rmarkdown", "roxygen2", "testthat", "extremeStat",
 "rgdal", "rJava", "rgeos", "spatstat", "OSMscale", "geoR", "mapdata", "maps",
-"raster", "RandomFields",
+"raster", "RandomFields", "plotKML", "rversions", "hunspell",
 "maptools", "leaflet", "mapview", "sf", "dygraphs", "sp", "animation", "ggplot2",
 "hexbin", "jpeg", "png", "rstudioapi"
 )

@@ -4,10 +4,11 @@
 \alias{allFunctions}
 \title{create and open a file with the content of all the functions in all my packages}
 \usage{
-allFunctions(package = NA, ...)
+allFunctions(package = berryFunctions::packagePath(), ...)
 }
 \arguments{
-\item{package}{Name(s) of packages. If NA, all in my package folder. DEFAULT: NA}
+\item{package}{Name(s) of packages. If NA, all in my package folder. 
+DEFAULT: \code{berryFunctions::\link{packagePath}()}}
 
 \item{\dots}{Arguments passed to \code{combineFiles} like quiet=TRUE}
 }
