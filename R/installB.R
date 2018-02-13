@@ -152,7 +152,7 @@ if(!is.null(st)) message(length(st), " unstaged changes in ",format(p,width=15),
 # Other git projects:
 message("-----")
 path <- normalizePath(file.path(path, ".."), winslash="/")
-folders <- paste0("R/",c("course","latex","misc","PrecTemp","rclick","rhydro"))
+folders <- paste0("R/",c("course","latex","misc","rclick","rhydro"))
 for(p in c(folders,"Faith/chords"))
 {
 r <- git2r::repository(file.path(path, p), discover = TRUE)
