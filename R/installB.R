@@ -294,10 +294,12 @@ package=berryFunctions::packagePath(),
   owd <- getwd()
   on.exit(setwd(owd))
   setwd(pathFinder())
-  if(all(is.na(package))) package <- dir()[-1]
+  packNA <- all(is.na(package))
+  pname <- if(packNA) "allpack" else basename(package) 
+  if(packNA) package <- dir()[-1]
   d <- dir(paste0(package,"/R"), full.names=TRUE)
 
-  outFile <- paste0("0-archive/__All_functions_", Sys.Date(), ".r")
+  outFile <- paste0("0-archive/__All_functions_", pname, "_", Sys.Date(), ".r")
   outFile <- berryFunctions::combineFiles(inFiles=d, outFile=outFile, ...)
   berryFunctions::openFile(outFile)
   outFile
