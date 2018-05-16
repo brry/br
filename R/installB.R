@@ -29,6 +29,10 @@
 #' # create character string  base::desktop
 #' desktop <- "C:/Users/berry/Desktop" # linux "/home/berry/Desktop"
 #' 
+#' # Speed up package installation
+#' # https://blog.jumpingrivers.com/posts/2017/speed_package_installation/
+#' options(Ncpus = parallel::detectCores()-1 )
+#' 
 #' # Loading Packages
 #' if(interactive()&requireNamespace("installB",quietly=TRUE)) installB::loadPackages(ask=FALSE)
 #' 
