@@ -214,7 +214,7 @@ if(ask)
 {
   message(" ---- Load packages?
 0: none
-1: installB+devtools+pbapply
+1: installB+devtools+pbapply+magrittr
 2: +berryFunctions
 3: +extremeStat
 4: +OSMscale
@@ -230,6 +230,7 @@ if(what>=1) {
   installB("installB") # library("installB", quietly=TRUE)
   loadAndMessage("devtools")
   loadAndMessage("pbapply")
+  loadAndMessage("magrittr")
 }
 if(what>=2) installB("berryFunctions")
 if(what>=3) installB("extremeStat")
