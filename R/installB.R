@@ -189,12 +189,14 @@ pathFinder <- function(path="S:/Dropbox/Rpack") # adjust path based on computer 
 
 #' @export
 #' @rdname installB
-loadAndMessage <- function(package, quiet=TRUE)
+#' @param message Write custom message in loadAndMessage? DEFAULT: TRUE
+loadAndMessage <- function(package, quiet=TRUE, message=TRUE)
 {
 if(quiet) suppressMessages(suppressWarnings(
               require(package, character.only=TRUE, quietly=TRUE)))  else
               require(package, character.only=TRUE, quietly=TRUE)
 # prepare message
+if(!message) return(invisible(NULL))
 packdesc <- utils::packageDescription(package)
 if(all(is.na(packdesc))) return(paste0("loading package '", package, "' failed."))
 version <- packdesc$Version
@@ -231,6 +233,7 @@ if(what>=1) {
   loadAndMessage("devtools")
   loadAndMessage("pbapply")
   loadAndMessage("magrittr")
+  loadAndMessage("check", message=FALSE) # check() priority over devtools
 }
 if(what>=2) installB("berryFunctions")
 if(what>=3) installB("extremeStat")

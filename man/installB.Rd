@@ -15,7 +15,7 @@ installA(path = "S:/Dropbox/Rpack", quiet = TRUE, ...)
 
 pathFinder(path = "S:/Dropbox/Rpack")
 
-loadAndMessage(package, quiet = TRUE)
+loadAndMessage(package, quiet = TRUE, message = TRUE)
 
 loadPackages(ask = TRUE)
 }
@@ -31,6 +31,8 @@ loadPackages(ask = TRUE)
 \item{unloadrevdep}{Try to unload some common reverse dependencies? DEFAULT: TRUE}
 
 \item{quiet}{Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage}
+
+\item{message}{Write custom message in loadAndMessage? DEFAULT: TRUE}
 
 \item{ask}{Logical for loadPackages. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE}
 
