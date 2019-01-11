@@ -3,6 +3,7 @@
 export(allFunctions)
 export(checkImports)
 export(codeSpaces)
+export(course)
 export(detachAll)
 export(funInCode)
 export(installA)
