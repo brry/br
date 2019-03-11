@@ -185,6 +185,8 @@ pathFinder <- function(path="S:/Dropbox/Rpack") # adjust path based on computer 
 {
   # remove end slash
   while(endsWith(path,"/")) path <- substring(path, 1, nchar(path)-1)
+  # Laptop path change:
+  if(!file.exists(path)) path <- gsub("S:", "C:", path)
   # work PC path change:
   if(!file.exists(path)) path <- gsub("S:", "C:/Users/boessenkool", path)
   # laptop linux path change:
@@ -370,7 +372,7 @@ if(!isInstalled("pbapply")) install.packages("pbapply")
 packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "zoo", "TeachingDemos", "ade4", "data.table", "microbenchmark", "nortest", "plotrix",
 "rgl", "xts", "zoom", "zyp", "gstat", "numbers", "readxl", "lattice",
-"gtools", "ncdf4", "pbapply",
+"gtools", "ncdf4", "pbapply", "R.rsp", "intervals",
 "knitr", "devtools","rmarkdown", "roxygen2", "testthat", "extremeStat",
 "rgdal", "rJava", "rgeos", "spatstat", "OSMscale", "geoR", "mapdata", "maps",
 "raster", "RandomFields", "plotKML", "rversions", "hunspell",
