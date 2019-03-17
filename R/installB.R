@@ -68,7 +68,8 @@ path="S:/Dropbox/Rpack",
 force=FALSE,
 load=TRUE,
 unloadrevdep=TRUE,
-quiet=FALSE
+quiet=FALSE,
+...
 )
 {
 # adjust path based on computer currently used:
@@ -121,7 +122,7 @@ if(doinst)
   {
   message("installB will now install ", package)
   utils::flush.console()
-  try(devtools::install(paste0(path, "/", package)))
+  try(devtools::install(paste0(path, "/", package), build_vignettes=TRUE, ...))
   }
 if(load) loadAndMessage(package, quiet=quiet)
 }
