@@ -333,6 +333,11 @@ package=berryFunctions::packagePath(),
   pname <- if(packNA) "allpack" else basename(package) 
   if(packNA) package <- dir()[-1]
   d <- dir(paste0(package,"/R"), full.names=TRUE)
+  if(grepl("rdwd", package)) d <- c(d, 
+    "rdwd/localtests/localtests.R",
+    "rdwd/localtests/CreateVignettes/rdwd.Rmd",
+    "rdwd/localtests/CreateVignettes/mapDWD.Rmd",
+    "rdwd/localtests/CreateVignettes/cases.Rmd")
 
   outFile <- paste0("0-archive/__All_functions_", pname, "_", Sys.Date(), ".r")
   outFile <- berryFunctions::combineFiles(inFiles=d, outFile=outFile, ...)
