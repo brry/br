@@ -230,6 +230,21 @@ profilesite <- function()
 
 
 
+# newsfile -------------------------------------------------------------------
+
+#' @title open NEWS file
+#' @description open NEWS file in default viewer
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul 2019
+#' @export
+#' @param path Filename at pacakge root directory to be opened
+newsfile <- function(path="NEWS") 
+{
+path <- berryFunctions::packagePath(file=path)
+file.edit(path) # for the Rstudio version, don't call utils::file.edit explicitely
+return(invisible(path))
+}
+
+
 # loadAndMessage ---------------------------------------------------------------
 
 #' @export
