@@ -366,9 +366,7 @@ package=berryFunctions::packagePath(),
   d <- dir(paste0(package,"/R"), full.names=TRUE)
   if(grepl("rdwd", package)) d <- c(d, 
     "rdwd/misc/localtests.R",
-    "rdwd/misc/vign/rdwd.Rmd",
-    "rdwd/misc/vign/mapDWD.Rmd",
-    "rdwd/misc/vign/cases.Rmd")
+    "rdwd/misc/vign/index.Rmd")
 
   outFile <- paste0("0-archive/__All_functions_", pname, "_", Sys.Date(), ".r")
   outFile <- berryFunctions::combineFiles(inFiles=d, outFile=outFile, ...)
