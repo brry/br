@@ -365,7 +365,7 @@ package=berryFunctions::packagePath(),
   if(packNA) package <- dir()[-1]
   d <- dir(paste0(package,"/R"), full.names=TRUE)
   if(grepl("rdwd", package)) d <- c(d, 
-    "rdwd/misc/localtests.R",
+    "rdwd/vignettes/rdwd.Rmd",
     "rdwd/misc/vign/index.Rmd")
 
   outFile <- paste0("0-archive/__All_functions_", pname, "_", Sys.Date(), ".r")
