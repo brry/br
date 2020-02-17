@@ -1,8 +1,8 @@
 Package: installB
 Type: Package
 Title: Update R package locally
-Version: 0.3.49
-Date: 2019-10-30
+Version: 0.3.50
+Date: 2020-02-17
 Imports: devtools, utils, git2r
 Suggests: berryFunctions (>= 1.15.33), pbapply
 Author: Berry Boessenkool
@@ -10,5 +10,5 @@ Maintainer: Berry Boessenkool <berry-b@gmx.de>
 Description: This will Locally Update R Packages that are in Development.
 License: GPL (>= 2)
 URL: https://github.com/brry/installB
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 BugReports: https://github.com/brry/installB

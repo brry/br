@@ -3,6 +3,7 @@
 export(allFunctions)
 export(checkCodeLink)
 export(checkImports)
+export(checkOutdated)
 export(codeSpaces)
 export(course)
 export(detachAll)

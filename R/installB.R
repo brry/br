@@ -60,7 +60,6 @@
 # installB ---------------------------------------------------------------------
 
 #' @export
-#' @importFrom utils compareVersion packageDescription
 #' 
 installB <- function(
 package=NA,
@@ -103,20 +102,7 @@ try(unloadNamespace(package), silent=TRUE) # if devtools::load_all was used,
 }
 #
 # check if installed version is outdated:
-if(force) doinst <- TRUE else
-  {
-  # installed date/version:
-  Vinst <- suppressWarnings(utils::packageDescription(package)[c("Date","Version")])
-  # if not yet installed, install anyways:
-  if(all(is.na(Vinst))) Vinst <- list(Date="1900-01-01",Version="0")
-  # date in source code
-  descfile <- paste0(path,"/",package, "/DESCRIPTION")
-  if(!file.exists(descfile)) stop("The file '", descfile, "' does not exist.")
-  Vsrc <- read.dcf(file=descfile, fields=c("Date","Version"))
-  # install if outdated:
-  doinst <- as.Date(Vsrc[,"Date"]) > as.Date(Vinst$Date) | 
-            compareVersion(Vsrc[,"Version"], Vinst$Version)==1
-  }
+doinst <- if(force) TRUE else checkOutdated(package, path, quiet=TRUE)
 # install
 if(doinst)
   {
@@ -176,6 +162,40 @@ if(!is.null(st)) message(length(st), " unstaged changes in ",format(p,width=15),
 }
 message("-----")
 }
+
+
+
+# checkOutdated ----------------------------------------------------------------
+
+#' @export
+#' @importFrom utils compareVersion packageDescription
+#' 
+checkOutdated <- function(
+package,
+path="S:/Dropbox/Rpack",
+quiet=FALSE
+)
+{
+# adjust path based on computer currently used:
+path <- pathFinder(path)
+# check if installed version is outdated:
+# installed date/version:
+Vinst <- suppressWarnings(utils::packageDescription(package)[c("Date","Version")])
+# if not yet installed, consider it outdated:
+if(all(is.na(Vinst))) Vinst <- list(Date="1900-01-01",Version="0")
+# date in source code
+descfile <- paste0(path,"/",package, "/DESCRIPTION")
+if(!file.exists(descfile)) stop("The file '", descfile, "' does not exist.")
+Vsrc <- read.dcf(file=descfile, fields=c("Date","Version"))
+# install if outdated:
+outdated <- as.Date(Vsrc[,"Date"]) > as.Date(Vinst$Date) | 
+            compareVersion(Vsrc[,"Version"], Vinst$Version)==1
+if(outdated & !quiet) message("'", package, "' is outdated.\n- Installed: ", 
+                              Vinst$Version," (",Vinst$Date,")\n- Source   : ",
+                              Vsrc[,"Version"], " (",Vsrc[,"Date"],")")
+return(outdated)
+}
+
 
 
 # pathFinder -------------------------------------------------------------------

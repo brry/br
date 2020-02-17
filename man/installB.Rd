@@ -8,8 +8,15 @@
 \alias{loadPackages}
 \title{install packages from local drive}
 \usage{
-installB(package = NA, path = "S:/Dropbox/Rpack", force = FALSE,
-  load = TRUE, unloadrevdep = TRUE, quiet = FALSE, ...)
+installB(
+  package = NA,
+  path = "S:/Dropbox/Rpack",
+  force = FALSE,
+  load = TRUE,
+  unloadrevdep = TRUE,
+  quiet = FALSE,
+  ...
+)
 
 installA(path = "S:/Dropbox/Rpack", quiet = TRUE, ...)
 
