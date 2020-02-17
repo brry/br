@@ -193,7 +193,7 @@ outdated <- as.Date(Vsrc[,"Date"]) > as.Date(Vinst$Date) |
 if(outdated & !quiet) message("'", package, "' is outdated.\n- Installed: ", 
                               Vinst$Version," (",Vinst$Date,")\n- Source   : ",
                               Vsrc[,"Version"], " (",Vsrc[,"Date"],")")
-return(outdated)
+return(invisible(outdated))
 }
 
 
