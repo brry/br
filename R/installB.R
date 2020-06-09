@@ -176,6 +176,7 @@ path="S:/Dropbox/Rpack",
 quiet=FALSE
 )
 {
+try(library(package, character.only=TRUE), silent=TRUE)
 # adjust path based on computer currently used:
 path <- pathFinder(path)
 # check if installed version is outdated:
@@ -433,7 +434,7 @@ packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "rgdal", "rJava", "rgeos", "spatstat", "OSMscale", "geoR", "mapdata", "maps",
 "raster", "RandomFields", "plotKML", "rversions", "hunspell",
 "maptools", "leaflet", "mapview", "sf", "dygraphs", "sp", "animation", "ggplot2",
-"hexbin", "jpeg", "png", "rstudioapi"
+"hexbin", "jpeg", "png", "rstudioapi", "dwdradar", "rskey"
 )
 message("Checking ",length(packs)," packages if they are installed ...")
 inst <- pbapply::pbsapply(packs, isInstalled) 
