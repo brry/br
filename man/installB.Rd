@@ -24,7 +24,7 @@ pathFinder(path = "S:/Dropbox/Rpack")
 
 loadAndMessage(package, quiet = TRUE, message = TRUE)
 
-loadPackages(ask = TRUE)
+loadPackages()
 }
 \arguments{
 \item{package}{Package name. DEFAULT: NA (interactive selection)}

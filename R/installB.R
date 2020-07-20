@@ -92,7 +92,6 @@ rm(list=l[l %in% d], envir=globalenv())
 #
 # unload package dependencies to avoid messages "unloadNamespace * not successful. Forcing unload."
 if(unloadrevdep){
-try(unloadNamespace("rfs"), silent=TRUE)
 try(unloadNamespace("rdwd"), silent=TRUE)
 try(unloadNamespace("mhmVis"), silent=TRUE)
 try(unloadNamespace("extremeStat"), silent=TRUE)
@@ -293,36 +292,16 @@ message("Loaded package ", format(package,width=15), "Version ",
 
 #' @export
 #' @rdname installB
-loadPackages <- function(ask=TRUE) if(interactive())
+loadPackages <- function() if(interactive())
 {
-# prompt user input:
-if(ask)
-{
-  message(" ---- Load packages?
-0: none
-1: installB+devtools+pbapply+magrittr
-2: +berryFunctions
-3: +extremeStat
-4: +OSMscale
-5: +rdwd")
-  what <- readline("Load packages? 0/1/2/3/4/5. ")
-  what <- as.integer(what)
-} else
-  what <- 2
-#
-#  actual work
-if(what>=1) {
-  cat('-----------------------------------------------\nloadAndMessage("")\n')
-  installB("installB") # library("installB", quietly=TRUE)
+cat('-----------------------------------------------\nloadAndMessage("")\n')
+  loadAndMessage("installB")
   loadAndMessage("devtools")
   loadAndMessage("pbapply")
   loadAndMessage("magrittr")
-  loadAndMessage("check", message=FALSE) # check() priority over devtools
-}
-if(what>=2) installB("berryFunctions")
-if(what>=3) installB("extremeStat")
-if(what>=4) installB("OSMscale")
-if(what>=5) installB("rdwd")
+  loadAndMessage("berryFunctions")
+  checkOutdated("installB")
+  checkOutdated("berryFunctions")  
 # working directory:
 cat("-----------------------------------------------\n")
 cat("getwd() : ", getwd(), "\n")
@@ -434,7 +413,8 @@ packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "rgdal", "rJava", "rgeos", "spatstat", "OSMscale", "geoR", "mapdata", "maps",
 "raster", "RandomFields", "plotKML", "rversions", "hunspell",
 "maptools", "leaflet", "mapview", "sf", "dygraphs", "sp", "animation", "ggplot2",
-"hexbin", "jpeg", "png", "rstudioapi", "dwdradar", "rskey"
+"hexbin", "jpeg", "png", "rstudioapi", "dwdradar", "rskey", "bookdown", "readODS",
+"huxtable", "packrat", "rsconnect", "lmom", "quantmod", "osmdata", "rjson"
 )
 message("Checking ",length(packs)," packages if they are installed ...")
 inst <- pbapply::pbsapply(packs, isInstalled) 
