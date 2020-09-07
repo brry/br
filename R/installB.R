@@ -294,12 +294,12 @@ cat('-----------------------------------------------\nloadAndMessage("")\n')
   loadAndMessage("pbapply")
   loadAndMessage("magrittr")
   loadAndMessage("berryFunctions")
-  checkOutdated("installB")
-  checkOutdated("berryFunctions")  
 # working directory:
 cat("-----------------------------------------------\n")
 cat("getwd() : ", getwd(), "\n")
 cat("-----------------------------------------------\n")
+  checkOutdated("installB")
+  checkOutdated("berryFunctions")  
 }
 
 # detachAll -------------------------------------------------------------------
