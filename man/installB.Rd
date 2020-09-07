@@ -72,13 +72,7 @@ desktop <- "C:/Users/berry/Desktop" # linux "/home/berry/Desktop"
 options(Ncpus = parallel::detectCores()-1 )
 
 # Loading Packages
-if(interactive()&requireNamespace("installB",quietly=TRUE)) installB::loadPackages(ask=FALSE)
-
-
-# Search path for Tinn R:
-.trPaths <- paste(Sys.getenv('LOCALAPPDATA'),
-'\\\\Temp\\\\Tinn-R', c('', 'search.txt', 'objects.txt',
-'file.r', 'selection.r', 'block.r','lines.r'),sep='\\\\')
+try(installB::loadPackages())
 
 # if install.packages and download.files give HTTP status 403 forbidden:
 options(url.method="libcurl")
