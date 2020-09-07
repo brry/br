@@ -408,7 +408,8 @@ packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "raster", "RandomFields", "plotKML", "rversions", "hunspell",
 "maptools", "leaflet", "mapview", "sf", "dygraphs", "sp", "animation", "ggplot2",
 "hexbin", "jpeg", "png", "rstudioapi", "dwdradar", "rskey", "bookdown", "readODS",
-"huxtable", "packrat", "rsconnect", "lmom", "quantmod", "osmdata", "rjson"
+"huxtable", "packrat", "rsconnect", "lmom", "quantmod", "osmdata", "rjson", "bit64", 
+"rhub", "leaflet.extras"
 )
 message("Checking ",length(packs)," packages if they are installed ...")
 inst <- pbapply::pbsapply(packs, isInstalled) 
