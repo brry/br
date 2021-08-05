@@ -47,7 +47,6 @@
 #' @param load Logical. Also call loadAndMessage? DEFAULT: TRUE
 #' @param unloadrevdep Try to unload some common reverse dependencies? DEFAULT: TRUE
 #' @param quiet Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage
-#' @param ask Logical for loadPackages. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE
 #' @param \ldots Optional for installE and isntallO: path argument passed to installB
 
 
@@ -116,9 +115,8 @@ if(load) loadAndMessage(package, quiet=quiet)
 installA <- function(path="S:/Dropbox/Rpack", quiet=TRUE, ...)
 {
 path <- pathFinder(path)
-packs <- dir(path)
+packs <- list.dirs(path, recursive=FALSE, full.names=FALSE)
 packs <- packs[packs!="0-archive"]
-packs <- packs[packs!="shapeInteractive"]
 for(p in packs) installB(package=p, path=path, quiet=quiet, load=FALSE, ...)
 for(p in packs) installB(package=p, path=path, quiet=quiet, unloadrevdep=FALSE, ...)
 # check for unstaged git changes:
@@ -196,16 +194,14 @@ return(invisible(outdated))
 
 #' @export
 #' @rdname installB
-pathFinder <- function(path="S:/Dropbox/Rpack") # adjust path based on computer currently used:
+pathFinder <- function(path="C:/Dropbox/Rpack") # adjust path based on computer currently used:
 {
   # remove end slash
   while(endsWith(path,"/")) path <- substring(path, 1, nchar(path)-1)
   # Laptop path change:
-  if(!file.exists(path)) path <- gsub("S:", "C:", path)
-  # work PC path change:
-  if(!file.exists(path)) path <- gsub("S:", "C:/Users/boessenkool", path)
-  # laptop linux path change:
-  if(!file.exists(path)) path <- gsub("C:/Users/boessenkool", "/home/berry", path)
+  if(!file.exists(path)) path <- gsub("C:", "S:", path)
+  # work Macbook path change:
+  if(!file.exists(path)) path <- gsub("S:", "~", path)
   #
   if(!file.exists(path)) stop("path does not exist. ", path)
   # Output:
@@ -636,4 +632,32 @@ cat("\n## Done,", as.character(Sys.time()), file=filename, append=TRUE)
 cat("\n##-----------------\n", file=filename, append=TRUE)
 # output:
 return(invisible(imps))
+}
+
+
+# convert_crlf_for_git_on_mac --------------------------------------------------
+
+#' @title convert CRLF for git on Mac OS
+#' @description convert CRLF for git on Mac OS
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2021
+#' @seealso \url{https://www.reddit.com/r/RStudio/comments/jxx226/git_line_endings_in_r_studio_is_anyone_else/gcz8k31}
+#' @keywords file
+#' @importFrom utils file.edit
+#' @export
+#' @param folder  Folder in which all files shall be processed 
+#'                (unless file is given, then \code{folder} is ignored)
+#' @param infile  File name
+#' @param \dots   Arguments passed to \code{\link{dir}}
+convert_crlf_for_git_on_mac <- function(folder=".", infile=NULL, ...)
+{
+  convert_one <- function(intfile) {txt <- readLines(intfile) 
+  f <- file(intfile, open="wb") 
+  cat(txt, file=f, sep="\n") 
+  close(f) }
+  if(!is.null(infile)) return(convert_one(infile))
+  files <- dir(folder, recursive=TRUE, all.files=TRUE, ...)
+  files <- files[!grepl("^\\.git", files)]
+  files <- files[!grepl("^\\.Rproj.user", files)]
+  out <- sapply(files, convert_one)
+  names(out)
 }

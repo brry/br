@@ -1,8 +1,8 @@
 Package: installB
 Type: Package
 Title: Update R package locally
-Version: 0.3.53
-Date: 2020-09-07
+Version: 0.3.54
+Date: 2021-08-05
 Imports: devtools, utils, git2r
 Suggests: berryFunctions (>= 1.15.33), pbapply
 Author: Berry Boessenkool

@@ -20,7 +20,7 @@ installB(
 
 installA(path = "S:/Dropbox/Rpack", quiet = TRUE, ...)
 
-pathFinder(path = "S:/Dropbox/Rpack")
+pathFinder(path = "C:/Dropbox/Rpack")
 
 loadAndMessage(package, quiet = TRUE, message = TRUE)
 
@@ -40,8 +40,6 @@ loadPackages()
 \item{quiet}{Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage}
 
 \item{message}{Write custom message in loadAndMessage? DEFAULT: TRUE}
-
-\item{ask}{Logical for loadPackages. Prompt for input? If FALSE, loadPackages acts as if input is 2. DEFAULT: TRUE}
 
 \item{\ldots}{Optional for installE and isntallO: path argument passed to installB}
 }
