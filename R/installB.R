@@ -668,15 +668,18 @@ convert_crlf_for_git_on_mac <- function(folder=".", infile=NULL, ...)
   }
   
   if(!is.null(infile)) return(convert_one(infile))
-  files <- dir(folder, recursive=TRUE, pattern=".*\\.(R|Rd|Rnw|Rmd)$", ...)
-  for(pat in c("DESCRIPTION", "NAMESPACE", "LICENSE", "README.md", ".Rprofile",
-               ".gitignore"))
-     files <- c(files, dir(folder, pattern=pat))
+  
+  files <- git2r::status(git2r::repository(folder))
+  files <- unlist(files, use.names=FALSE)
+  # files <- dir(folder, recursive=TRUE, pattern=".*\\.(R|Rd|Rnw|Rmd)$", ...)
+  # for(pat in c("DESCRIPTION", "NAMESPACE", "LICENSE", "README.md", ".Rprofile",
+  #              ".gitignore"))
+  #    files <- c(files, dir(folder, pattern=pat))
   files <- files[!grepl("\\.git", files)]
   files <- files[!grepl("\\.Rproj.user", files)]
   out <- sapply(files, convert_one)
+  
   if(!is.null(convert_ignored_files)) warning("files with embedded nul ignored: ", 
                                               toString(convert_ignored_files))
   names(out)
 }
-
