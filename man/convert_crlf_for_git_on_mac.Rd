@@ -19,6 +19,7 @@ convert CRLF for git on Mac OS
 }
 \seealso{
 \url{https://www.reddit.com/r/RStudio/comments/jxx226/git_line_endings_in_r_studio_is_anyone_else/gcz8k31}
+\url{https://stackoverflow.com/a/52694438}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2021

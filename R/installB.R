@@ -641,6 +641,7 @@ return(invisible(imps))
 #' @description convert CRLF for git on Mac OS
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2021
 #' @seealso \url{https://www.reddit.com/r/RStudio/comments/jxx226/git_line_endings_in_r_studio_is_anyone_else/gcz8k31}
+#' \url{https://stackoverflow.com/a/52694438}
 #' @keywords file
 #' @importFrom utils file.edit
 #' @export
@@ -650,36 +651,5 @@ return(invisible(imps))
 #' @param \dots   Arguments passed to \code{\link{dir}}
 convert_crlf_for_git_on_mac <- function(folder=".", infile=NULL, ...)
 {
-  convert_ignored_files <- NULL
-  # converting a single file
-  convert_one <- function(intfile) {
-  op <- options(warn=2)  # capture embedded nulls
-  txt <- try(readLines(intfile), silent=TRUE)
-  options(op)
-  if(inherits(txt, "try-error")) if( grepl("embedded nul", txt))
-    {
-    convert_ignored_files <<- c(convert_ignored_files, intfile)
-    return(NULL)
-    }
-  if(inherits(txt, "try-error")) txt <- readLines(intfile) # for incomplete final line
-  f <- file(intfile, open="wb") 
-  cat(txt, file=f, sep="\n") 
-  close(f)
-  }
-  
-  if(!is.null(infile)) return(convert_one(infile))
-  
-  files <- git2r::status(git2r::repository(folder))
-  files <- unlist(files, use.names=FALSE)
-  # files <- dir(folder, recursive=TRUE, pattern=".*\\.(R|Rd|Rnw|Rmd)$", ...)
-  # for(pat in c("DESCRIPTION", "NAMESPACE", "LICENSE", "README.md", ".Rprofile",
-  #              ".gitignore"))
-  #    files <- c(files, dir(folder, pattern=pat))
-  files <- files[!grepl("\\.git", files)]
-  files <- files[!grepl("\\.Rproj.user", files)]
-  out <- sapply(files, convert_one)
-  
-  if(!is.null(convert_ignored_files)) warning("files with embedded nul ignored: ", 
-                                              toString(convert_ignored_files))
-  names(out)
+stop("Just set:   git config --global core.autocrlf input")
 }
