@@ -10,7 +10,7 @@
 \usage{
 installB(
   package = NA,
-  path = "S:/Dropbox/Rpack",
+  path = "C:/Dropbox/Rpack",
   force = FALSE,
   load = TRUE,
   unloadrevdep = TRUE,
@@ -18,7 +18,7 @@ installB(
   ...
 )
 
-installA(path = "S:/Dropbox/Rpack", quiet = TRUE, ...)
+installA(path = "C:/Dropbox/Rpack", quiet = TRUE, ...)
 
 pathFinder(path = "C:/Dropbox/Rpack")
 
@@ -29,7 +29,7 @@ loadPackages()
 \arguments{
 \item{package}{Package name. DEFAULT: NA (interactive selection)}
 
-\item{path}{Path containing package folder. DEFAULT: "S:/Dropbox/Rpack"}
+\item{path}{Path containing package folder. DEFAULT: "C:/Dropbox/Rpack"}
 
 \item{force}{Logical. Even install if the version is not outdated? DEFAULT: FALSE}
 

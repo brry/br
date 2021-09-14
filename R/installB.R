@@ -42,7 +42,7 @@
 #' } # end dontrun
 #' 
 #' @param package Package name. DEFAULT: NA (interactive selection)
-#' @param path Path containing package folder. DEFAULT: "S:/Dropbox/Rpack"
+#' @param path Path containing package folder. DEFAULT: "C:/Dropbox/Rpack"
 #' @param force Logical. Even install if the version is not outdated? DEFAULT: FALSE
 #' @param load Logical. Also call loadAndMessage? DEFAULT: TRUE
 #' @param unloadrevdep Try to unload some common reverse dependencies? DEFAULT: TRUE
@@ -56,7 +56,7 @@
 #' 
 installB <- function(
 package=NA,
-path="S:/Dropbox/Rpack",
+path="C:/Dropbox/Rpack",
 force=FALSE,
 load=TRUE,
 unloadrevdep=TRUE,
@@ -112,7 +112,7 @@ if(load) loadAndMessage(package, quiet=quiet)
 # @importFrom utils getFromNamespace
 #' @importFrom git2r repository status
 
-installA <- function(path="S:/Dropbox/Rpack", quiet=TRUE, ...)
+installA <- function(path="C:/Dropbox/Rpack", quiet=TRUE, ...)
 {
 path <- pathFinder(path)
 packs <- list.dirs(path, recursive=FALSE, full.names=FALSE)
