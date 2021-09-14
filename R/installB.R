@@ -163,7 +163,7 @@ message("-----")
 #' 
 checkOutdated <- function(
 package,
-path="S:/Dropbox/Rpack",
+path="C:/Dropbox/Rpack",
 quiet=FALSE
 )
 {
