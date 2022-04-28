@@ -3,6 +3,7 @@
 \name{installB}
 \alias{installB}
 \alias{installA}
+\alias{checkOutdated}
 \alias{pathFinder}
 \alias{loadAndMessage}
 \alias{loadPackages}
@@ -19,6 +20,8 @@ installB(
 )
 
 installA(path = "C:/Dropbox/Rpack", quiet = TRUE, ...)
+
+checkOutdated(package, path = "C:/Dropbox/Rpack", quiet = FALSE)
 
 pathFinder(path = "C:/Dropbox/Rpack")
 

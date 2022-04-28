@@ -159,6 +159,7 @@ message("-----")
 # checkOutdated ----------------------------------------------------------------
 
 #' @export
+#' @rdname installB
 #' @importFrom utils compareVersion packageDescription
 #' 
 checkOutdated <- function(
@@ -285,16 +286,12 @@ message("Loaded package ", format(package,width=15), "Version ",
 loadPackages <- function() if(interactive())
 {
 cat('-----------------------------------------------\nloadAndMessage("")\n')
-  loadAndMessage("installB")
   loadAndMessage("devtools")
-  loadAndMessage("pbapply")
-  loadAndMessage("magrittr")
   loadAndMessage("berryFunctions")
 # working directory:
 cat("-----------------------------------------------\n")
 cat("getwd() : ", getwd(), "\n")
 cat("-----------------------------------------------\n")
-  checkOutdated("installB")
   checkOutdated("berryFunctions")  
 }
 
@@ -394,7 +391,7 @@ isInstalled <- function(package)
 packsNewR <- function(...)
 {
 if(!isInstalled("pbapply")) install.packages("pbapply")
-
+options(install.packages.check.source = "no")
 packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "zoo", "TeachingDemos", "ade4", "data.table", "microbenchmark", "nortest", "plotrix",
 "rgl", "xts", "zoom", "zyp", "gstat", "numbers", "readxl", "lattice",
@@ -405,7 +402,8 @@ packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "maptools", "leaflet", "mapview", "sf", "dygraphs", "sp", "animation", "ggplot2",
 "hexbin", "jpeg", "png", "rstudioapi", "dwdradar", "rskey", "bookdown", "readODS",
 "huxtable", "packrat", "rsconnect", "lmom", "quantmod", "osmdata", "rjson", "bit64", 
-"rhub", "leaflet.extras"
+"rhub", "leaflet.extras", "DT", "pacman", "beepr", "miniUI", "googlesheets4", 
+"openxlsx", "vioplot", "pdftools"
 )
 message("Checking ",length(packs)," packages if they are installed ...")
 inst <- pbapply::pbsapply(packs, isInstalled) 
