@@ -70,8 +70,8 @@ path <- pathFinder(path)
 # interactive package choice
 if(is.na(package))
   {
-  packs <- dir(path)
-  packs <- packs[packs!="0-archive"]
+  packs <- list.dirs(path, full.names=FALSE, recursive=FALSE)
+  packs <- packs[!packs %in% c(".Rproj.user", "0-archive")]
   sel <- menu(packs, title=paste0("Which package would you like to install",
                                   if(!force)" (if outdated)", "?"))
   package <- packs[sel]
