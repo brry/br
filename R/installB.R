@@ -352,7 +352,7 @@ package=berryFunctions::packagePath(),
   pname <- if(packNA) "allpack" else basename(package) 
   if(packNA) package <- dir()[-1]
   d <- dir(paste0(package,"/R"), full.names=TRUE)
-  if(grepl("rdwd", package)) d <- c(d, 
+  if(any(grepl("rdwd", package))) d <- c(d, 
     "rdwd/vignettes/rdwd.Rmd",
     "rdwd/misc/vign/index.Rmd")
 
@@ -397,13 +397,13 @@ packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "rgl", "xts", "zoom", "zyp", "gstat", "numbers", "readxl", "lattice",
 "gtools", "ncdf4", "pbapply", "R.rsp", "intervals",
 "knitr", "devtools","rmarkdown", "roxygen2", "testthat", "extremeStat",
-"rgdal", "rJava", "rgeos", "spatstat", "OSMscale", "geoR", "mapdata", "maps",
+"rJava", "spatstat", "OSMscale", "geoR", "mapdata", "maps",
 "raster", "RandomFields", "plotKML", "rversions", "hunspell",
-"maptools", "leaflet", "mapview", "sf", "dygraphs", "sp", "animation", "ggplot2",
+"leaflet", "mapview", "sf", "dygraphs", "sp", "animation", "ggplot2",
 "hexbin", "jpeg", "png", "rstudioapi", "dwdradar", "rskey", "bookdown", "readODS",
 "huxtable", "packrat", "rsconnect", "lmom", "quantmod", "osmdata", "rjson", "bit64", 
 "rhub", "leaflet.extras", "DT", "pacman", "beepr", "miniUI", "googlesheets4", 
-"openxlsx", "vioplot", "pdftools"
+"openxlsx", "vioplot", "pdftools", "XML", "kableExtra"
 )
 message("Checking ",length(packs)," packages if they are installed ...")
 inst <- pbapply::pbsapply(packs, isInstalled) 
