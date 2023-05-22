@@ -1,7 +1,6 @@
 #' @title Correct spaces in source code
 #' @description Remove trailing spaces in source code
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2017
-#' @export
 #' @param path Package path, Character string. DEFAULT: "." (current getwd)
 codeSpaces <- function(path=".")
 {

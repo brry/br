@@ -6,7 +6,6 @@
 #'              \code{\link{detach}(package:pkg, unload=TRUE)}.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Sept 2016
 #' @importFrom utils sessionInfo
-#' @export
 
 detachAll <- function()
 {

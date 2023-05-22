@@ -2,7 +2,6 @@
 #' @description  check for code{} and link{} statements where the leading slash 
 #' has been forgotten in the source code
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
-#' @export
 #' @param path Package path, Character string. DEFAULT: "." (current getwd)
 checkCodeLink <- function(path=".")
 {

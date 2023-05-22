@@ -2,7 +2,6 @@
 #' @description Report whether a function name is used in some code.
 #'              Only returns TRUE if it is followed by "(" or included as pack::fun
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2017
-#' @export
 #' @importFrom utils head tail
 #' @seealso \url{https://stackoverflow.com/questions/45691254}
 #' @examples 

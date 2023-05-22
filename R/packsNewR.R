@@ -1,6 +1,5 @@
 #' Packages in new R installation
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June 2017
-#' @export
 #' @importFrom utils install.packages
 #' @importFrom tools package_dependencies
 #' @param \dots Arguments passed to \code{\link{install.packages}}

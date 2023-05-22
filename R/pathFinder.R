@@ -1,6 +1,7 @@
+#' @title Find package path based on the computer used.
 #' @export
-#' @rdname installB
-pathFinder <- function(path="C:/Dropbox/Rpack") # adjust path based on computer currently used:
+#' @param path Path containing package folder. DEFAULT: "C:/Dropbox/Rpack"
+pathFinder <- function(path="C:/Dropbox/Rpack")
 {
 # remove end slash
 while(endsWith(path,"/")) path <- substring(path, 1, nchar(path)-1)

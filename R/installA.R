@@ -1,6 +1,4 @@
-#' @export
-#' @rdname installB
-# @importFrom utils getFromNamespace
+#' @title run installB on all my packages.
 #' @importFrom git2r repository status
 
 installA <- function(path="C:/Dropbox/Rpack", quiet=TRUE, ...)

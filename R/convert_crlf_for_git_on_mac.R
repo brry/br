@@ -5,7 +5,6 @@
 #' \url{https://stackoverflow.com/a/52694438}
 #' @keywords file
 #' @importFrom utils file.edit
-#' @export
 #' @param folder  Folder in which all files shall be processed 
 #'                (unless file is given, then \code{folder} is ignored)
 #' @param infile  File name

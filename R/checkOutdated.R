@@ -1,6 +1,9 @@
-#' @export
-#' @rdname installB
+#' @title check if installed package is outdated.
 #' @importFrom utils compareVersion packageDescription
+#' @param package Package name
+#' @param path Path containing package folder. DEFAULT: "C:/Dropbox/Rpack"
+#' @param quiet suppress messaging.
+
 #' 
 checkOutdated <- function(
   package,

@@ -4,7 +4,6 @@
 #'              within character strings are included as well.
 #'              (Comment-only lines are ignored).
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2017
-#' @export
 #' @examples 
 #' \dontrun{ # exclude from checks
 #' library(berryFunctions)

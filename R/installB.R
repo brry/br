@@ -1,16 +1,8 @@
-
-# package doc ------------------------------------------------------------------
-
-#' install packages from local drive
-#' 
-#' \bold{installB} removes function objects from workspace and tries to unload
-#'       reverse dependencies. It then calls \code{devtools::\link[devtools]{install}}.\cr
-#' \bold{installA} runs this for all my packages.\cr
-#' \bold{pathFinder} changes the path based on the computer used.\cr
-#' \bold{loadAndMessage} calls \code{\link{require}} and gives verbose output.\cr
-#' \bold{loadPackages} loads a number of packages I always like to have in the search path.\cr
-#' 
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2014 - Nov 2016
+#' @title install packages from local drive
+#' @description
+#' Remove function objects from workspace and try to unload reverse dependencies. 
+#' Then call \code{devtools::\link[devtools]{install}}.\cr
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, 2014 - 2023
 #' @seealso \code{\link{packageDescription}}, \code{\link{read.dcf}}
 #' @keywords package
 #' @importFrom devtools install
@@ -18,6 +10,9 @@
 #' @examples
 #' \dontrun{
 #' # Here's what you could write into your Rprofile.site:
+#' 
+#' # Loading Packages
+#' try(br::loadPackages())
 #' 
 #' options(help_type="html")
 #' 
@@ -33,9 +28,6 @@
 #' # https://blog.jumpingrivers.com/posts/2017/speed_package_installation/
 #' options(Ncpus = parallel::detectCores()-1 )
 #' 
-#' # Loading Packages
-#' try(br::loadPackages())
-#' 
 #' # if install.packages and download.files give HTTP status 403 forbidden:
 #' options(url.method="libcurl")
 #' 
@@ -46,12 +38,8 @@
 #' @param force Logical. Even install if the version is not outdated? DEFAULT: FALSE
 #' @param load Logical. Also call loadAndMessage? DEFAULT: TRUE
 #' @param unloadrevdep Try to unload some common reverse dependencies? DEFAULT: TRUE
-#' @param quiet Logical for loadAndMessage: suppress messages like "package was built under R version xyz" in loadAndMessage
-#' @param \ldots Optional for installE and isntallO: path argument passed to installB
-
-
-# installB ---------------------------------------------------------------------
-
+#' @param quiet Suppress messages? DEFAULT: FALSE
+#' @param \ldots passed to \code{devtools::\link[devtools]{install}}
 #' @export
 #' 
 installB <- function(
