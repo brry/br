@@ -2,6 +2,7 @@
 
 export(allFunctions)
 export(check)
+export(crancheck)
 export(del_ds)
 export(document)
 export(install)
