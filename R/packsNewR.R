@@ -14,11 +14,12 @@ packs <- c("RColorBrewer", "berryFunctions", "rdwd", "foreign", "RCurl",
 "knitr", "devtools","rmarkdown", "roxygen2", "testthat", "extremeStat",
 "rJava", "spatstat", "OSMscale", "geoR", "mapdata", "maps",
 "raster", "RandomFields", "plotKML", "rversions", "hunspell",
-"leaflet", "mapview", "sf", "dygraphs", "sp", "animation", "ggplot2",
+"leaflet", "mapview", "sf", "dygraphs", "animation", "ggplot2",
 "hexbin", "jpeg", "png", "rstudioapi", "dwdradar", "rskey", "bookdown", "readODS",
 "huxtable", "packrat", "rsconnect", "lmom", "quantmod", "osmdata", "rjson", "bit64", 
 "rhub", "leaflet.extras", "DT", "pacman", "beepr", "miniUI", "googlesheets4", 
-"openxlsx", "vioplot", "pdftools", "XML", "kableExtra"
+"openxlsx", "vioplot", "pdftools", "XML", "kableExtra", "PerformanceAnalytics",
+"car", "corrplot", "carData", "gsheet"
 )
 message("Checking ",length(packs)," packages if they are installed ...")
 inst <- pbapply::pbsapply(packs, isInstalled) 
@@ -43,5 +44,12 @@ if(any(!inst))
   } else
   message("All packages listed in installB::packsNewR are installed.")
 
+installB("rskey")
+installB("knitPres")
+installB("dwdradar")
+installB("rdwd")
+installB("berryFunctions")
+installB("codeoceanR")
+installB("OSMscale")
 message("Done. To unload the ",length(packs)," checked packages, please restart R.")
 }
