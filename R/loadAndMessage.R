@@ -15,4 +15,5 @@ version <- packdesc$Version
 date    <- packdesc$Date
 message("Loaded package ", format(package,width=15), "Version ",
           format(version,width=7), " from ", date)
+checkOutdated(package)
 }
