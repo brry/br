@@ -3,7 +3,7 @@
 ---------------------------------------------------------------------
 
 
-Version 0.3.1 (2016-09-20)
+Changes in version  0.3.1 (2016-09-20)
 - all functions into one file
 - updatePackages removed (incorporated directly in installB)
 - pathFinder added and used in upper level functions
@@ -14,19 +14,18 @@ Version 0.3.1 (2016-09-20)
 ---------------------------------------------------------------------
 
 
-Version 0.2.6 (2016-07-25)
+Changes in version  0.2.6 (2016-07-25)
 - checks Version, not only date
 - package somewhat more lightweight, github part taken out
 - Rprofile.site example updated completely 
 - package roxygenized
-
-New Functions: loadPackages, loadAndMessage
+- New Functions: loadPackages, loadAndMessage
 
 
 ---------------------------------------------------------------------
 
 
-Version 0.1.7 (2015-12-15)
+Changes in version  0.1.7 (2015-12-15)
 - utils dependency corrected
 - path change corrected and expanded
 - installB first detaches extremeSat (depending on the package to be update)
@@ -36,13 +35,12 @@ Version 0.1.7 (2015-12-15)
 ---------------------------------------------------------------------
 
 
-Version 0.1.1 (2015-06-24)
-
-New Functions: updatePackages, installE
+Changes in version  0.1.1 (2015-06-24)
+- New Functions: updatePackages, installE
 
 
 ---------------------------------------------------------------------
 
 
-Version 0.1.0 (2015-06-24)
-initial release onto github (function pulled from other package extremeStat)
+Changes in version  0.1.0 (2015-06-24)
+- initial release onto github (function pulled from other package extremeStat)

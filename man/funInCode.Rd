@@ -16,12 +16,14 @@ Report whether a function name is used in some code.
              Only returns TRUE if it is followed by "(" or included as pack::fun
 }
 \examples{
+if(FALSE){ # not run, since funInCode is no longer exported
 code <- "mean(pi); head(data.frame(A=1:5)); data_frame(7:9); do.call(base::print, list(pi))"
 funs <- c("mean", "head", "head.data.frame",  "data.frame", "frame", "data_frame", "base::print")
 data.frame(isfound=sapply(funs, funInCode, code=code), 
            shouldbefound=c(TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE))
            
 funInCode("ABC::pack.dep", "ABC::pack_dep(A)")
+}
 
 }
 \seealso{

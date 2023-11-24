@@ -3,6 +3,8 @@
 #' @return nothing
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, included here Aug 2023
 #' @keywords package
+#' @importFrom rhub check_for_cran
+#' @importFrom devtools check_win_devel
 #' @export
 #'
 crancheck <- function() 

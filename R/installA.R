@@ -1,5 +1,8 @@
 #' @title run installB on all my packages.
 #' @importFrom git2r repository status
+#' @param path Path containing package folder. DEFAULT: "C:/Dropbox/Rpack"
+#' @param quiet Suppress messages? DEFAULT: FALSE
+#' @param \ldots passed to \code{\link{installB}}
 
 installA <- function(path="C:/Dropbox/Rpack", quiet=TRUE, ...)
 {

@@ -6,6 +6,13 @@
 \usage{
 installA(path = "C:/Dropbox/Rpack", quiet = TRUE, ...)
 }
+\arguments{
+\item{path}{Path containing package folder. DEFAULT: "C:/Dropbox/Rpack"}
+
+\item{quiet}{Suppress messages? DEFAULT: FALSE}
+
+\item{\ldots}{passed to \code{\link{installB}}}
+}
 \description{
 run installB on all my packages.
 }
