@@ -9,8 +9,11 @@
 #'
 crancheck <- function() 
  {
+ message("checking for rhub...")
+ if(!file.exists(".github/workflows/rhub.yaml")) stop(".github/workflows/rhub.yaml not found. Run    rhub::rhub_setup()")
+ rhub::rhub_doctor()
  message("Submitting to rhub...")
- rhub::check_for_cran(env_vars=c(`_R_CHECK_FORCE_SUGGESTS_`="false"), show_status=FALSE)
+ rhub::rhub_check()
  message("Submitting to win-builder...")
  devtools::check_win_devel(quiet=TRUE)
  message("Done. Results will come in by email.")
