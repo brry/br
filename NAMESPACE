@@ -10,20 +10,26 @@ export(installB)
 export(loadPackages)
 export(pathFinder)
 export(profilesite)
-importFrom(devtools,check)
-importFrom(devtools,check_win_devel)
-importFrom(devtools,document)
-importFrom(devtools,install)
-importFrom(git2r,repository)
-importFrom(git2r,status)
+importFrom(devtools,
+  check,
+  check_win_devel,
+  document,
+  install
+)
+importFrom(git2r,
+  repository,
+  status
+)
 importFrom(rhub,check_for_cran)
 importFrom(tools,package_dependencies)
-importFrom(utils,compareVersion)
-importFrom(utils,file.edit)
-importFrom(utils,flush.console)
-importFrom(utils,head)
-importFrom(utils,install.packages)
-importFrom(utils,menu)
-importFrom(utils,packageDescription)
-importFrom(utils,sessionInfo)
-importFrom(utils,tail)
+importFrom(utils,
+  compareVersion,
+  file.edit,
+  flush.console,
+  head,
+  install.packages,
+  menu,
+  packageDescription,
+  sessionInfo,
+  tail
+)
