@@ -1,11 +1,13 @@
-#' @title open R course PDF
-#' @description open R course PDF in default viewer
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jan 2019
-#' @param pres Logical: Open presentation file with LaTeX onslide et al? DEFAULT: FALSE
+#' @title open course PDFs
+#' @description open 4 course PDFs in default viewer
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jan 2019, Sept 2026
+#' @param tut Logical: also open Tutorial pdf? DEFAULT: TRUE
 
-course <- function(pres=FALSE) 
+course <- function(tut=TRUE) 
 {
-path <- sub("/Rpack", "/R/course/RcourseBerry.pdf", pathFinder()  )
-if(pres) path <- sub(".pdf", " pres.pdf", path)
-berryFunctions::openFile(path)
+path <- sub("/Rpack", "/R/kurs/fp_slides_pdf", pathFinder()  )
+pdfs <- dir(path, full.names=TRUE)
+tpdf <- sub("/fp_slides_pdf", "/i_slides/FP_tutorial.pdf", path)
+if(tut) pdfs <- c(pdfs, tpdf)
+berryFunctions::openFile(pdfs)
 }

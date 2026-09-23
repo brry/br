@@ -2,16 +2,16 @@
 % Please edit documentation in R/course.R
 \name{course}
 \alias{course}
-\title{open R course PDF}
+\title{open course PDFs}
 \usage{
-course(pres = FALSE)
+course(tut = TRUE)
 }
 \arguments{
-\item{pres}{Logical: Open presentation file with LaTeX onslide et al? DEFAULT: FALSE}
+\item{tut}{Logical: also open Tutorial pdf? DEFAULT: TRUE}
 }
 \description{
-open R course PDF in default viewer
+open 4 course PDFs in default viewer
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Jan 2019
+Berry Boessenkool, \email{berry-b@gmx.de}, Jan 2019, Sept 2026
 }
