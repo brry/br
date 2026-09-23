@@ -13,6 +13,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{devtools}{\code{\link[devtools]{check}}, \code{\link[devtools]{document}}, \code{\link[devtools]{install}}}
+  \item{devtools}{\code{\link[devtools:check]{check()}}, \code{\link[devtools:document]{document()}}, \code{\link[devtools:install]{install()}}}
 }}
 
