@@ -1,8 +1,8 @@
 Package: br
 Type: Package
 Title: Update R package locally
-Version: 0.4.6
-Date: 2026-09-23
+Version: 0.4.7
+Date: 2026-10-14
 Imports: devtools, utils, git2r, rhub
 Suggests: berryFunctions (>= 1.15.33), pbapply
 Author: Berry Boessenkool
