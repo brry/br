@@ -1,8 +1,8 @@
 Package: br
 Type: Package
 Title: Update R package locally
-Version: 0.4.7
-Date: 2026-10-14
+Version: 0.4.8
+Date: 2026-11-19
 Imports: devtools, utils, git2r, rhub
 Suggests: berryFunctions (>= 1.15.33), pbapply
 Author: Berry Boessenkool
@@ -12,4 +12,4 @@ License: GPL (>= 2)
 URL: https://github.com/brry/br
 Encoding: UTF-8
 BugReports: https://github.com/brry/br
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1

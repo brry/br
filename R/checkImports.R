@@ -25,13 +25,16 @@ on.exit(setwd(owd), add=TRUE)
 filename <- berryFunctions::newFilename(filename)
 
 # All the functions already listed in namespace importFrom entries:
-ns <- readLines("NAMESPACE")
-ns <- ns[substr(ns,1,10)=="importFrom"]
-ns <- gsub("importFrom(", "", ns, fixed=TRUE)
-ns <- gsub(")", "", ns, fixed=TRUE)
-ns <- t(sapply(strsplit(ns,","),I))
-ns <- as.data.frame(ns, stringsAsFactors=FALSE)
-colnames(ns) <- c("pack","fun")
+# NAMESPACE is R syntax, so parse it (robust to roxygen2 line formatting):
+nsexpr <- parse("NAMESPACE", keep.source=FALSE)
+nsexpr <- nsexpr[vapply(nsexpr, function(e) identical(e[[1]], as.name("importFrom")), logical(1))]
+ns <- do.call(rbind, lapply(nsexpr, function(e)
+  {
+  args <- vapply(as.list(e)[-1], as.character, character(1))
+  data.frame(pack=args[1], fun=args[-1], stringsAsFactors=FALSE)
+  }))
+if(is.null(ns)) ns <- data.frame(pack=character(), fun=character(), stringsAsFactors=FALSE)
+rm(nsexpr)
 
 # include all functions in base R packages:
 #ps <- .packages(); ps <- ps[ps!="base"]
