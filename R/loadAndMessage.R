@@ -1,4 +1,5 @@
 #' @title Call \code{\link{require}} and give verbose output
+#' @importFrom utils packageDescription
 #' @param package Package name
 #' @param quiet suppress messages like "package was built under R version xyz". DEFAULT: TRUE
 #' @param message Write custom message? DEFAULT: TRUE

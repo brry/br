@@ -1,6 +1,7 @@
 #' @title open NEWS and DESCRIPTION files at package root
 #' @description open NEWS and DESCRIPTION files at package root in default viewer
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul 2019
+#' @importFrom utils file.edit
 #' @param path Package dir. DEFAULT: "."
 newsdesc <- function(path=".") 
 {
