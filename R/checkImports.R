@@ -3,26 +3,33 @@
 #'              There may be false positives: function names in comments or 
 #'              within character strings are included as well.
 #'              (Comment-only lines are ignored).
+#'              Calls to imported functions that lack an explicit \code{pack::} prefix
+#'              are listed as well (file:line), and returned as data.frame in 
+#'              \code{attr(, "noprefix")} of the output. 
+#'              Functions from base R packages (stats, utils, ...) are excluded from this list.
+#'              Same-named functions in several packages are listed as \code{pack1|pack2}.
+#'              Locally defined functions or arguments with the same name
+#'              as an imported function are false positives.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2017
 #' @examples 
 #' \dontrun{ # exclude from checks
 #' library(berryFunctions)
 #' setwd(paste0(pathFinder(), "/berryFunctions"))
 #' imps <- checkImports()
-#' openFile("checkImports.R")
 #' for(n in names(imps)[!sapply(imps, is.null)]) openFile(n) ; rm(n)
 #' unlink("checkImports.R")
 #' }
 #' 
 #' @param path     Package path, Character string. DEFAULT: "." (current getwd)
-#' @param filename Output file name. Text will be added, previous content remains.
+#' @param filename Output file name. Will overwrite existing file.
 #'                 DEFAULT: "checkImports.R"
 #' 
 checkImports <- function(path=".", filename="checkImports.R")
 {
 owd <- setwd(berryFunctions::packagePath(path))
 on.exit(setwd(owd), add=TRUE)
-filename <- berryFunctions::newFilename(filename)
+message("Writing in ", filename)
+cat("", file=filename)
 
 # All the functions already listed in namespace importFrom entries:
 # NAMESPACE is R syntax, so parse it (robust to roxygen2 line formatting):
@@ -86,8 +93,40 @@ imps <- sapply(names(codes), function(fname)  # one minute in berryFunctions (10
   cat(fname, out, sep="\n", file=filename, append=TRUE)
   invisible(out)
   })
+
+# Calls to imported functions without explicit pack:: prefix
+cat("\n## Calls without pack:: prefix (file:line  pack::fun)\n", file=filename, append=TRUE)
+# a function name may exist in several packages, so keep all candidates:
+nsimp <- ns[!ns$pack %in% c("base", "compiler", "grDevices", "graphics", "grid", "methods", 
+                            "parallel", "splines", "stats", "stats4", "tcltk", "tools", "utils"),]
+packs_of <- tapply(nsimp$pack, nsimp$fun, function(x) paste(sort(unique(x)), collapse="|"))
+noprefix <- lapply(names(codes), function(fname)
+  {
+  x <- codes[[fname]]
+  x2 <- sub("^[[:space:]]*", "", x)
+  x[substr(x2,1,1)=="#"] <- "" # keeps line numbers intact
+  # function names followed by "(", not preceded by ::, $, @, or name characters
+  m <- gregexpr("(?<![A-Za-z0-9_.:$@])[A-Za-z.][A-Za-z0-9._]*\\(", x, perl=TRUE)
+  hits <- regmatches(x, m)
+  line <- rep(seq_along(x), lengths(hits))
+  fun <- sub("\\($", "", unlist(hits))
+  keep <- fun %in% names(packs_of)
+  if(!any(keep)) return(NULL)
+  data.frame(file=fname, line=line[keep], fun=fun[keep], 
+             pack=unname(packs_of[fun[keep]]), stringsAsFactors=FALSE)
+  })
+names(noprefix) <- names(codes)
+noprefix <- do.call(rbind, noprefix)
+if(!is.null(noprefix))
+  {
+  rownames(noprefix) <- NULL
+  cat(paste0(noprefix$file, ":", noprefix$line, "  ", noprefix$pack, "::", noprefix$fun),
+      sep="\n", file=filename, append=TRUE)
+  }
 cat("\n## Done,", as.character(Sys.time()), file=filename, append=TRUE)
 cat("\n##-----------------\n", file=filename, append=TRUE)
+try(berryFunctions::openFile(filename), silent=TRUE)
 # output:
+attr(imps, "noprefix") <- noprefix
 return(invisible(imps))
 }

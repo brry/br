@@ -9,7 +9,7 @@ checkImports(path = ".", filename = "checkImports.R")
 \arguments{
 \item{path}{Package path, Character string. DEFAULT: "." (current getwd)}
 
-\item{filename}{Output file name. Text will be added, previous content remains.
+\item{filename}{Output file name. Will overwrite existing file.
 DEFAULT: "checkImports.R"}
 }
 \description{
@@ -17,13 +17,19 @@ For each file in package/R, check whether all used functions are imported.
              There may be false positives: function names in comments or 
              within character strings are included as well.
              (Comment-only lines are ignored).
+             Calls to imported functions that lack an explicit \code{pack::} prefix
+             are listed as well (file:line), and returned as data.frame in 
+             \code{attr(, "noprefix")} of the output. 
+             Functions from base R packages (stats, utils, ...) are excluded from this list.
+             Same-named functions in several packages are listed as \code{pack1|pack2}.
+             Locally defined functions or arguments with the same name
+             as an imported function are false positives.
 }
 \examples{
 \dontrun{ # exclude from checks
 library(berryFunctions)
 setwd(paste0(pathFinder(), "/berryFunctions"))
 imps <- checkImports()
-openFile("checkImports.R")
 for(n in names(imps)[!sapply(imps, is.null)]) openFile(n) ; rm(n)
 unlink("checkImports.R")
 }
